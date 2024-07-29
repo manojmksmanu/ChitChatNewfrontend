@@ -1,0 +1,14 @@
+body {
+  background: url("./assets/bg.png");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  box-sizing: border-box;
+  width: 100vw;
+  height: 100vh;
+  margin: 0 0;
+  padding: 0 0;
+
+}
+
+
