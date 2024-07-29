@@ -16,6 +16,21 @@ const Sidebar = () => {
     setIsOpen(!isOpen);
   };
 
+  const navsItems = [
+    {
+      name: "allchats",
+      icon: <LuMessageCircle />,
+      label: "All Chats",
+    },
+    { name: "people", icon: <SlPeople />, label: "Peoples" },
+    { name: "groups", icon: <TbUsersGroup />, label: "Groups" },
+    {
+      name: "creategroup",
+      icon: <MdOutlineGroupAdd />,
+      label: "Create Group",
+    },
+  ];
+
   const navSwitch = (e) => {
     setNavToggle(e);
   };
@@ -32,15 +47,11 @@ const Sidebar = () => {
         // className={`sidenav_bg fixed top-0 left-0 h-screen drop-shadow-lg bg-white  text-slate-800 w-28 transform ${
         //   isOpen ? "translate-x-0" : "-translate-x-full"
         // } md:relative md:translate-x-0 transition-transform duration-300 ease-in-out`}
-        className={`sidenav_bg fixed top-0 left-0 h-screen drop-shadow-lg bg-white  text-slate-800 md:w-28 w-10 transform 
+        className={`sidenav_bg fixed top-0 left-0 h-screen drop-shadow-lg bg-white  text-slate-800 md:w-28 sm:w-10 w-8 transform 
         md:relative md:translate-x-0 transition-transform duration-300 ease-in-out`}
       >
         <div className="flex flex-col h-full justify-between">
           <div className="">
-            {/* Button to close sidebar */}
-            {/* <button className="md:hidden mb-4" onClick={toggleSidebar}>
-              <FaTimes />
-            </button> */}
             <nav>
               <ul className="flex flex-col">
                 {/* <li className="mt-4">
@@ -81,81 +92,42 @@ const Sidebar = () => {
                 <li className="mt-4 flex">
                   <Logo />
                 </li>
-                <li
-                  onClick={() => navSwitch("allchats")}
-                  className={`mt-4 flex items-center pl-2 cursor-pointer hover:border-l-4  hover:border-blue-700 ${
-                    navToggle === "allchats"
-                      ? "text-blue-700 border-l-4  border-blue-700"
-                      : ""
-                  }`}
-                >
-                  <LuMessageCircle />{" "}
-                  <span className="text-xs font-normal rounded-sm p-1 w-full md:block hidden">
-                    All Chats
-                  </span>
-                </li>
-                <li
-                  onClick={() => navSwitch("people")}
-                  className={`mt-4 flex items-center pl-2 cursor-pointer hover:border-l-4  hover:border-blue-700 ${
-                    navToggle === "people"
-                      ? "text-blue-700 border-l-4  border-blue-700"
-                      : ""
-                  }`}
-                >
-                  <SlPeople />
-                  <span className="bg-white text-xs font-normal rounded-sm p-1 w-full md:block hidden">
-                    Peoples
-                  </span>
-                </li>
-                <li
-                  onClick={() => navSwitch("groups")}
-                  className={`mt-4 flex items-center pl-2 cursor-pointer hover:border-l-4  hover:border-blue-700 ${
-                    navToggle === "groups"
-                      ? "text-blue-700 border-l-4  border-blue-700"
-                      : ""
-                  }`}
-                >
-                  <TbUsersGroup />{" "}
-                  <span className="bg-white text-xs font-normal rounded-sm p-1 w-full md:block hidden">
-                    Groups
-                  </span>
-                </li>
-                <li
-                  onClick={() => navSwitch("creategroup")}
-                  className={`mt-4 flex items-center pl-2 cursor-pointer hover:border-l-4  hover:border-blue-700 ${
-                    navToggle === "creategroup"
-                      ? "text-blue-700 border-l-4  border-blue-700"
-                      : ""
-                  }`}
-                >
-                  <MdOutlineGroupAdd />{" "}
-                  <span className="bg-white text-xs font-normal rounded-sm p-1 w-full md:block hidden">
-                    Create Group
-                  </span>
-                </li>
+                {navsItems.map((item) => (
+                  <motion.li
+                    key={item.name}
+                    onClick={() => navSwitch(item.name)}
+                    whileTap={{ scale: 0.99 }}
+                    className={`mt-4 flex items-center pl-2 cursor-pointer transition-all ${
+                      navToggle === item.name
+                        ? "text-blue-700 border-l-4 border-blue-700"
+                        : "hover:border-l-4 hover:border-blue-700 hover:text-blue-700"
+                    }`}
+                  >
+                    {item.icon}
+                    <span className="text-xs font-normal transition-all rounded-sm p-1 w-full  md:block hidden hover:text-blue-700">
+                      {item.label}
+                    </span>
+                  </motion.li>
+                ))}
               </ul>
             </nav>
           </div>
           {/* ---logout section----  */}
           <div className="flex justify-center p-1">
-            <div className="flex gap-3 items-center bg-white drop-shadow-lg w-full rounded-sm p-2 cursor-pointer">
-              <LuLogOut className="text-xl text-slate-600" />{" "}
+            <motion.div
+            whileHover={{scale:0.98}}
+              whileTap={{ scale: 0.95 }}
+              className="flex gap-3 items-center bg-white drop-shadow-lg w-full rounded-sm sm:p-2 p-1 cursor-pointer"
+            >
+              <LuLogOut className="text-xl text-slate-600" />
               <span className="text-xs text-slate-600 md:block hidden">
                 Logout
               </span>
-            </div>
+            </motion.div>
           </div>
           {/* ---logout section ends here----  */}
         </div>
       </div>
-
-      {/* Overlay for small screens */}
-      {isOpen && (
-        <div
-          className="fixed inset-0 bg-black opacity-50 md:hidden"
-          onClick={toggleSidebar}
-        ></div>
-      )}
     </div>
   );
 };
