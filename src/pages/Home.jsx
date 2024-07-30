@@ -1,6 +1,7 @@
 import React from "react";
 import Sidebar from "../components/SideNavbar/SideNavbar";
 import AllChats from "../components/AllChats/AllChats";
+import MessageSection from "../components/MessageSection/MessageSection";
 
 const Home = () => {
   return (
@@ -8,6 +9,9 @@ const Home = () => {
       <Sidebar />
       <div>
         <AllChats />
+      </div>
+      <div className="flex-grow p-1">
+        <MessageSection/>
       </div>
     </div>
   );

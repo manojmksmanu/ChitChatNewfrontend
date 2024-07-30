@@ -12,11 +12,11 @@ const ChatsAvtar = ({ selected }) => {
         src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT8AJM9wkP__z2M-hovSAWcTb_9XJ6smy3NKw&s"
       />
       <div className="flex flex-col ">
-        <div className="font-bold text-[18px] flex items-center justify-between">
+        <div className=" text-[16px] flex items-center justify-between">
           Manoj Kumar
           {/* <span className="text-[12px] ">9:00</span> */}
         </div>
-        <div className="text-[14px]"> Latest Message .........</div>
+        <div className="text-[12px] font-light"> Latest Message .........</div>
       </div>
     </div>
   );
