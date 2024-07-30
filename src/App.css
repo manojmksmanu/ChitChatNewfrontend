@@ -1,5 +1,6 @@
 body {
-  background: url("./assets/bg.png");
+  /* background: url("./assets/bg.png"); */
+  background-color: #D1E6FF;
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;

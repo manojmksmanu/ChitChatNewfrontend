@@ -4,7 +4,7 @@ import ChatsAvtar from "../SmallComponents/ChatsAvtar";
 const AllChats = () => {
   return (
     <div className="h-full p-1 flex flex-col custom_scroll_bar w-52 relative">
-      <div className="font-semibold text-white mb-2">All Chats</div>
+      <div className="font-semibold text-slate-600 mb-3">All Chats</div>
       {/* Chats */}
       <div className="flex-grow bg-white overflow-x-hidden overflow-auto rounded-md">
         <div className="flex flex-col ">
