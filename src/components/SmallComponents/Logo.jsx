@@ -11,7 +11,7 @@ const Logo = () => {
         CC
       </motion.div>
       <motion.div
-        className="ml-1 text-gray-800 text-xs font-thin md:block hidden"
+        className="ml-1 text-gray-800 text-xs font-thin md:block hidden dark:text-slate-50"
         animate={{ x: [0, -5, 0] }}
         transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
       >

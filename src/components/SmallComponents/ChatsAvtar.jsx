@@ -3,7 +3,7 @@ import React from "react";
 const ChatsAvtar = ({ selected }) => {
   return (
     <div
-      className={`flex md:w-full items-center gap-2 cursor-pointer md:p-3 relative ${
+      className={`flex md:w-full items-center gap-2 cursor-pointer md:p-3 relative dark:text-slate-50  ${
         selected === "style" ? "bg-blue-500 text-white" : ""
       }`}
     >

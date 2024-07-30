@@ -3,7 +3,7 @@ import React from 'react'
 const FindUserAvtar = () => {
   return (
     <div
-      className={`flex md:w-full items-center gap-2 cursor-pointer md:p-3 relative `}
+      className={`flex md:w-full items-center dark:text-slate-50 text-slate-700 gap-2 cursor-pointer md:p-3 relative `}
     >
       <img
         className="w-8 h-8 rounded-full bg-white drop-shadow-lg p-1"

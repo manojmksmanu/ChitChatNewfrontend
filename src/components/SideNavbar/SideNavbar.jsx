@@ -8,6 +8,7 @@ import { MdOutlineGroupAdd } from "react-icons/md";
 import { LuLogOut } from "react-icons/lu";
 import { motion } from "framer-motion";
 import Logo from "../SmallComponents/Logo";
+import ThemeToggle from "../ThemeToggle/ThemeToggle";
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [navToggle, setNavToggle] = useState("allchats");
@@ -47,7 +48,7 @@ const Sidebar = () => {
         // className={`sidenav_bg fixed top-0 left-0 h-screen drop-shadow-lg bg-white  text-slate-800 w-28 transform ${
         //   isOpen ? "translate-x-0" : "-translate-x-full"
         // } md:relative md:translate-x-0 transition-transform duration-300 ease-in-out`}
-        className={`sidenav_bg fixed top-0 left-0 h-screen drop-shadow-lg bg-white  text-slate-800 md:w-28 sm:w-10 w-8 transform 
+        className={`sidenav_bg fixed top-0 left-0 h-screen drop-shadow-lg bg-white dark:bg-[#001329]  text-slate-800 md:w-28 sm:w-10 w-8 transform 
         md:relative md:translate-x-0 transition-transform duration-300 ease-in-out`}
       >
         <div className="flex flex-col h-full justify-between">
@@ -97,14 +98,15 @@ const Sidebar = () => {
                     key={item.name}
                     onClick={() => navSwitch(item.name)}
                     whileTap={{ scale: 0.99 }}
-                    className={`mt-4 flex items-center pl-2 cursor-pointer transition-all ${
+                    className={`mt-4 flex items-center dark:text-slate-50 pl-2 cursor-pointer transition-all ${
                       navToggle === item.name
-                        ? "text-blue-700 border-l-4 border-blue-700"
-                        : "hover:border-l-4 hover:border-blue-700 hover:text-blue-700"
+                        ? "text-blue-700 dark:text-blue-600 border-l-4 border-blue-700 "
+                        : "hover:border-l-4  hover:border-blue-700 hover:text-blue-700"
                     }`}
                   >
-                    {item.icon}
-                    <span className="text-xs font-normal transition-all rounded-sm p-1 w-full  md:block hidden hover:text-blue-700">
+                    <span className=""> {item.icon}</span>
+
+                    <span className="text-xs font-normal transition-all rounded-sm p-1 w-full  md:block hidden ">
                       {item.label}
                     </span>
                   </motion.li>
@@ -113,19 +115,20 @@ const Sidebar = () => {
             </nav>
           </div>
           {/* ---logout section----  */}
-          <div className="flex justify-center p-1">
+          <div className="flex flex-col justify-center p-1 gap-2">
+            <ThemeToggle />
             <motion.div
               whileHover={{ scale: 0.98 }}
               whileTap={{ scale: 0.95 }}
-              className="flex gap-3 items-center bg-white drop-shadow-lg w-full rounded-sm sm:p-2 p-1 cursor-pointer"
+              className="flex gap-3 items-center bg-white dark:bg-gray-700 drop-shadow-lg w-full rounded-sm sm:p-2 p-1 cursor-pointer"
             >
-              <LuLogOut className="text-xl text-slate-600" />
+              <LuLogOut className="text-xl text-slate-600 dark:text-slate-50" />
               <span
                 type="button"
                 id="deleteButton"
                 data-modal-target="deleteModal"
                 data-modal-toggle="deleteModal"
-                className="text-xs text-slate-600 md:block hidden"
+                className="text-xs text-slate-600  md:block hidden dark:text-slate-50"
               >
                 Logout
               </span>
@@ -137,6 +140,5 @@ const Sidebar = () => {
     </div>
   );
 };
-
 
 export default Sidebar;

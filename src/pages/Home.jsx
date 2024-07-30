@@ -13,7 +13,7 @@ const Home = () => {
     setToggleFindChats(!toggleFindChats);
   };
   return (
-    <div className="flex h-screen overflow-hidden ">
+    <div className="flex h-screen overflow-hidden bg-[#D1E6FF]  dark:bg-[#002047]">
       <Sidebar />
       {/* ---All chats --  */}
       <div className="relative">
@@ -29,10 +29,10 @@ const Home = () => {
       </div>
       {/* ---All chats Ends --  */}
       <div className="flex-grow p-1">
-        <UserProfileSection/>
+        {/* <UserProfileSection/> */}
         <MessageSection />
       </div>
-      <Modal/>
+      <Modal />
     </div>
   );
 };
