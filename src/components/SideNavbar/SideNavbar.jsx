@@ -115,12 +115,18 @@ const Sidebar = () => {
           {/* ---logout section----  */}
           <div className="flex justify-center p-1">
             <motion.div
-            whileHover={{scale:0.98}}
+              whileHover={{ scale: 0.98 }}
               whileTap={{ scale: 0.95 }}
               className="flex gap-3 items-center bg-white drop-shadow-lg w-full rounded-sm sm:p-2 p-1 cursor-pointer"
             >
               <LuLogOut className="text-xl text-slate-600" />
-              <span className="text-xs text-slate-600 md:block hidden">
+              <span
+                type="button"
+                id="deleteButton"
+                data-modal-target="deleteModal"
+                data-modal-toggle="deleteModal"
+                className="text-xs text-slate-600 md:block hidden"
+              >
                 Logout
               </span>
             </motion.div>
@@ -131,5 +137,6 @@ const Sidebar = () => {
     </div>
   );
 };
+
 
 export default Sidebar;

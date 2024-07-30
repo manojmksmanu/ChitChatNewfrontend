@@ -5,7 +5,7 @@ import MessageSection from "../components/MessageSection/MessageSection";
 import { BiSolidMessageSquareAdd } from "react-icons/bi";
 import FindChats from "../components/FindChats/FindChats";
 import { motion } from "framer-motion";
-
+import Modal from '../components/ConfirmationModalLogout/Modal'
 const Home = () => {
   const [toggleFindChats, setToggleFindChats] = useState(false);
   const toggleChats = () => {
@@ -30,6 +30,7 @@ const Home = () => {
       <div className="flex-grow p-1">
         <MessageSection />
       </div>
+      <Modal/>
     </div>
   );
 };
