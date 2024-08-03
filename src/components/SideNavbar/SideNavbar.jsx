@@ -13,7 +13,7 @@ import { contextData } from "../../context/Context";
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [navToggle, setNavToggle] = useState("allchats");
-  const {user}=contextData()
+  const { user } = contextData();
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
@@ -50,12 +50,9 @@ const Sidebar = () => {
         md:relative md:translate-x-0 transition-transform duration-300 ease-in-out`}
       >
         <div className="flex flex-col h-full justify-between">
-          <div>
-            </div>
           <div className="">
             <nav>
               <ul className="flex flex-col">
-          
                 <li className="mt-4 flex">
                   <Logo />
                 </li>
@@ -82,6 +79,9 @@ const Sidebar = () => {
           </div>
           {/* ---logout section----  */}
           <div className="flex flex-col justify-center p-1 gap-2">
+            <div className="md:p-3 p-0">
+              {user && <img className="rounded-md" src={user.pic} />}
+            </div>
             <ThemeToggle />
             <motion.div
               whileHover={{ scale: 0.98 }}
