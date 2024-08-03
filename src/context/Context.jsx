@@ -1,4 +1,4 @@
-import React, { Children, createContext, useContext, useState } from "react";
+import React, {  createContext, useContext, useState } from "react";
 export const Context = createContext();
 export const Provider = ({ children }) => {
   const [selectedChat, setSelectedChat] = useState("manoj");
