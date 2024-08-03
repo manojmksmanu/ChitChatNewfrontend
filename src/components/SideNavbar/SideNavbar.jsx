@@ -39,10 +39,9 @@ const Sidebar = () => {
   return (
     <div className="flex">
       {/* Button to open sidebar */}
-      <button className="md:hidden p-4" onClick={toggleSidebar}>
+      <button className="md:hidden md:p-4 sm:p-3 p-2" onClick={toggleSidebar}>
         <FaBars />
       </button>
-
       {/* Sidebar */}
       <div
         // className={`sidenav_bg fixed top-0 left-0 h-screen drop-shadow-lg bg-white  text-slate-800 w-28 transform ${

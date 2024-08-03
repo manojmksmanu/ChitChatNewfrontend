@@ -4,7 +4,7 @@ import { CiSearch } from "react-icons/ci";
 
 const FindChats = () => {
   return (
-    <div className="h-full p-1 flex flex-col custom_scroll_bar w-52 ">
+    <div className="h-full p-1 flex flex-col custom_scroll_bar">
       <div className="font-semibold text-slate-600 dark:text-slate-50  mb-3">
         Add Users
       </div>

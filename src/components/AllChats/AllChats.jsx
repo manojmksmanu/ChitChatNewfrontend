@@ -3,7 +3,7 @@ import ChatsAvtar from "../SmallComponents/ChatsAvtar";
 
 const AllChats = () => {
   return (
-    <div className="h-full p-1 flex flex-col custom_scroll_bar w-52 relative">
+    <div className="h-full md:p-1 p-1 flex flex-col custom_scroll_bar  w-full  relative">
       <div className="font-semibold text-slate-600 dark:text-slate-100 mb-3">All Chats</div>
       {/* Chats */}
       <div className="flex-grow bg-white dark:bg-[#001329]  overflow-x-hidden overflow-auto rounded-md">

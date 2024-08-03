@@ -5,8 +5,12 @@ import MessageSection from "../components/MessageSection/MessageSection";
 import { BiSolidMessageSquareAdd } from "react-icons/bi";
 import FindChats from "../components/FindChats/FindChats";
 import { motion } from "framer-motion";
-import Modal from '../components/ConfirmationModalLogout/Modal'
+import Modal from "../components/ConfirmationModalLogout/Modal";
+import { contextData } from "../context/Context";
 const Home = () => {
+  const { selectedChat, setSelectedChat } = contextData();
+
+  console.log(selectedChat);
   const [toggleFindChats, setToggleFindChats] = useState(false);
   const toggleChats = () => {
     setToggleFindChats(!toggleFindChats);
@@ -15,7 +19,7 @@ const Home = () => {
     <div className="flex h-screen overflow-hidden bg-[#D1E6FF]  dark:bg-[#002047]">
       <Sidebar />
       {/* ---All chats --  */}
-      <div className="relative">
+      <div className={`relative md:block md:w-52 w-full ${selectedChat==="manoj"?"hidden":"block"}`}>
         <motion.span
           onClick={() => toggleChats()}
           whileHover={{ scale: 0.98 }}
@@ -27,7 +31,7 @@ const Home = () => {
         {!toggleFindChats ? <AllChats /> : <FindChats />}
       </div>
       {/* ---All chats Ends --  */}
-      <div className="flex-grow p-1">
+      <div className={`flex-grow p-1  md:block  ${selectedChat==="manoj"?"block":"hidden"}`}>
         {/* <UserProfileSection/> */}
         <MessageSection />
       </div>
