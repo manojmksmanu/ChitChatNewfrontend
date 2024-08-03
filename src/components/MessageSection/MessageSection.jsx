@@ -1,8 +1,9 @@
-import React from "react";
+import React ,{useState}from "react";
 import Top from "../SmallComponents/ComponentOfMessageSection/Top";
 import Bottom from "../SmallComponents/ComponentOfMessageSection/Bottom";
 
 const MessageSection = () => {
+ 
   return (
     <div className="w-full h-full flex flex-col">
       <div>
