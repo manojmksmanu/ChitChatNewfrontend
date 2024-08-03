@@ -5,7 +5,7 @@ import { getSender } from "../../chatLoggics/chatLoggics";
 const ChatsAvtar = ({ data }) => {
   const { user } = contextData();
   const sender = getSender(user, data.users);
-  console.log(data, "dfsdfsdfs");
+
   return (
     <div
       className={`flex md:w-full items-center gap-2 cursor-pointer md:p-3 p-3 relative dark:text-slate-50 `}

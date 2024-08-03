@@ -11,8 +11,6 @@ import Chats from "../components/Chats/Chats";
 const Home = () => {
   const { selectedChat, setSelectedChat } = contextData();
 
-  console.log(selectedChat);
-
   return (
     <div className="flex h-screen overflow-hidden bg-[#D1E6FF]  dark:bg-[#002047]">
       <Sidebar />
