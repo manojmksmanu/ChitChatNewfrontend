@@ -7,13 +7,13 @@ import { ToastContainer } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 const LoginSignup = () => {
   const [isSignUp, setIsSignUp] = useState(true);
-//   const navigate = useNavigate();
-//  useEffect(() => {
-//    const user = JSON.parse(localStorage.getItem("userInfo"));
-//    if (user) {
-//      navigate("/home", { replace: true });
-//    }
-//  }, [navigate]);
+  const navigate = useNavigate();
+ useEffect(() => {
+   const user = JSON.parse(localStorage.getItem("userInfo"));
+   if (user) {
+     navigate("/home", { replace: true });
+   }
+ }, [navigate]);
   return (
     <section className="bg-white dark:bg-gray-900 flex justify-center">
       <div className="container flex flex-col items-center justify-center min-h-screen md:max-w-sm">

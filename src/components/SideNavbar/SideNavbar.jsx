@@ -9,9 +9,11 @@ import { LuLogOut } from "react-icons/lu";
 import { motion } from "framer-motion";
 import Logo from "../SmallComponents/Logo";
 import ThemeToggle from "../ThemeToggle/ThemeToggle";
+import { contextData } from "../../context/Context";
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [navToggle, setNavToggle] = useState("allchats");
+  const {user}=contextData()
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
@@ -44,51 +46,16 @@ const Sidebar = () => {
       </button>
       {/* Sidebar */}
       <div
-        // className={`sidenav_bg fixed top-0 left-0 h-screen drop-shadow-lg bg-white  text-slate-800 w-28 transform ${
-        //   isOpen ? "translate-x-0" : "-translate-x-full"
-        // } md:relative md:translate-x-0 transition-transform duration-300 ease-in-out`}
         className={`sidenav_bg fixed top-0 left-0 h-screen drop-shadow-lg bg-white dark:bg-[#001329]  text-slate-800 md:w-28 sm:w-10 w-8 transform 
         md:relative md:translate-x-0 transition-transform duration-300 ease-in-out`}
       >
         <div className="flex flex-col h-full justify-between">
+          <div>
+            </div>
           <div className="">
             <nav>
               <ul className="flex flex-col">
-                {/* <li className="mt-4">
-                <div className="flex items-center justify-center ">
-                  <div className="relative">
-                    <img
-                      src="https://images.ctfassets.net/h6goo9gw1hh6/2sNZtFAWOdP1lmQ33VwRN3/24e953b920a9cd0ff2e1d587742a2472/1-intro-photo-final.jpg?w=1200&h=992&fl=progressive&q=70&fm=jpg"
-                      alt="Profile"
-                      className="w-20 h-20 rounded-full border-4 border-white"
-                    />
-                    <motion.div
-                      className="absolute top-0 left-0 w-full h-full rounded-full border-2 border-blue-500"
-                      animate={{
-                        scale: [1, 1.2, 1],
-                        opacity: [1, 0, 1],
-                      }}
-                      transition={{
-                        duration: 2,
-                        repeat: Infinity,
-                        ease: "easeInOut",
-                      }}
-                    />
-                    <motion.div
-                      className="absolute top-0 left-0 w-full h-full rounded-full border-2 border-blue-500"
-                      animate={{
-                        scale: [1, 1.4, 1],
-                        opacity: [1, 0, 1],
-                      }}
-                      transition={{
-                        duration: 2,
-                        repeat: Infinity,
-                        ease: "easeInOut",
-                      }}
-                    />
-                  </div>
-                </div>
-              </li> */}
+          
                 <li className="mt-4 flex">
                   <Logo />
                 </li>
