@@ -1,12 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import ThemeToggle from "../components/ThemeToggle/ThemeToggle";
 import Login from "../components/Authentication/Login";
 import Signup from "../components/Authentication/Signup";
-
+import { ToastContainer } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 const LoginSignup = () => {
   const [isSignUp, setIsSignUp] = useState(true);
-
+//   const navigate = useNavigate();
+//  useEffect(() => {
+//    const user = JSON.parse(localStorage.getItem("userInfo"));
+//    if (user) {
+//      navigate("/home", { replace: true });
+//    }
+//  }, [navigate]);
   return (
     <section className="bg-white dark:bg-gray-900 flex justify-center">
       <div className="container flex flex-col items-center justify-center min-h-screen md:max-w-sm">
@@ -62,7 +69,7 @@ const LoginSignup = () => {
                 transition={{ duration: 0.5 }}
                 className="w-full"
               >
-                <Signup />
+                <Signup setIsSignUp={setIsSignUp} />
               </motion.div>
             ) : (
               <motion.div
@@ -93,6 +100,7 @@ const LoginSignup = () => {
       <div className="hidden">
         <ThemeToggle />
       </div>
+      <ToastContainer />
     </section>
   );
 };
