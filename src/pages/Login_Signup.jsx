@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import ThemeToggle from "../components/ThemeToggle/ThemeToggle";
 import Login from "../components/Authentication/Login";
 import Signup from "../components/Authentication/Signup";
@@ -9,11 +10,22 @@ const LoginSignup = () => {
   return (
     <section className="bg-white dark:bg-gray-900 flex justify-center">
       <div className="container flex flex-col items-center justify-center min-h-screen md:max-w-sm">
-        <div className="flex justify-center ">
-          <span className="text-blue-700 font-black text-5xl">CC</span>
+        <div className="flex justify-center">
+          <div className="logo-container">
+            <div className="logo flex text-white font-black text-4xl">
+              <motion.div className="c c1">C</motion.div>
+              <motion.div
+                className="c c2"
+                animate={{ rotate: [-20, 10, -20] }}
+                transition={{ repeat: Infinity, duration: 2 }}
+              >
+                C
+              </motion.div>
+            </div>
+          </div>
         </div>
 
-        <div className="flex items-center sm:w-[50%] w-[80%]  justify-center mt-6 ">
+        <div className="flex items-center sm:w-[50%] w-[80%] justify-center mt-6">
           <a
             href="#"
             onClick={() => setIsSignUp(false)}
@@ -38,8 +50,36 @@ const LoginSignup = () => {
             sign up
           </a>
         </div>
-        <form className="w-full px-6">{isSignUp ? <Signup /> : <Login />}</form>
-        <div className="mt-1 mb-4  text-center ">
+
+        <div className="w-full px-6" style={{ minHeight: "400px" }}>
+          <AnimatePresence mode="wait">
+            {isSignUp ? (
+              <motion.div
+                key="signup"
+                initial={{ opacity: 0, x: 100 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -100 }}
+                transition={{ duration: 0.5 }}
+                className="w-full"
+              >
+                <Signup />
+              </motion.div>
+            ) : (
+              <motion.div
+                key="login"
+                initial={{ opacity: 0, x: -100 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 100 }}
+                transition={{ duration: 0.5 }}
+                className="w-full"
+              >
+                <Login />
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+
+        <div className="mt-1 mb-4 text-center">
           <a
             href="#"
             className="text-[14px] text-blue-500 hover:underline dark:text-blue-400"
