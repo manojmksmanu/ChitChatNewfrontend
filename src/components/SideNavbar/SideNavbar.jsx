@@ -13,12 +13,11 @@ import { contextData } from "../../context/Context";
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [navToggle, setNavToggle] = useState("allchats");
-  const { user } = contextData();
-
+  const { user, switchTab, setSwitchTab,setSelectedChat } = contextData();
+  console.log(switchTab);
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
   };
-
   const navsItems = [
     {
       name: "allchats",
@@ -36,6 +35,9 @@ const Sidebar = () => {
 
   const navSwitch = (e) => {
     setNavToggle(e);
+    setSwitchTab(e);
+    setSelectedChat();
+    
   };
 
   return (

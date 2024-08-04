@@ -5,7 +5,7 @@ import AllChats from "../AllChats/AllChats";
 import FindChats from "../FindChats/FindChats";
 import { contextData } from "../../context/Context";
 const Chats = () => {
-  const {selectedChat}=contextData()
+  const { selectedChat, switchTab } = contextData();
   const [toggleFindChats, setToggleFindChats] = useState(false);
   const toggleChats = () => {
     setToggleFindChats(!toggleFindChats);
@@ -20,10 +20,10 @@ const Chats = () => {
         onClick={() => toggleChats()}
         whileHover={{ scale: 0.98 }}
         whileTap={{ scale: 0.94 }}
+        className={`${switchTab === "allchats" ? "block" : "hidden"}`}
       >
-        <BiSolidMessageSquareAdd className="cursor-pointer text-blue-700 border text-4xl border-white absolute z-20 bottom-2 right-2" />
+        <BiSolidMessageSquareAdd className="cursor-pointer text-blue-700  text-4xl  absolute z-20 bottom-2 right-2" />
       </motion.span>
-
       {!toggleFindChats ? (
         <AllChats />
       ) : (

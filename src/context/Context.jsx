@@ -6,7 +6,7 @@ export const Provider = ({ children }) => {
   const [user, setUser] = useState();
   const [selectedChat, setSelectedChat] = useState();
   const [chats, setChats] = useState();
-  const [switchTab, setSwitchTab] = useState(); //to swtich tabs allchats / peoples/ groups/ create group
+  const [switchTab, setSwitchTab] = useState("allchats"); //to swtich tabs allchats / peoples/ groups/ create group
   useEffect(() => {
     const userInfo = JSON.parse(localStorage.getItem("userInfo"));
     setUser(userInfo);

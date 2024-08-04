@@ -5,9 +5,8 @@ import axios from "axios";
 import { toast } from "react-toastify";
 
 const AllChats = () => {
-  const { chats, setChats, user, selectedChat, setSelectedChat } =
+  const { chats, setChats, user, selectedChat, setSelectedChat, switchTab } =
     contextData();
-  console.log(selectedChat, "seel");
   const fetchChats = async () => {
     if (!user) return;
     try {
@@ -42,12 +41,28 @@ const AllChats = () => {
       {/* Chats */}
       <div className="flex-grow bg-white dark:bg-[#001329] overflow-x-hidden overflow-auto rounded-md">
         <div className="flex flex-col ">
-          {chats &&
-            chats.map((chat) => (
+          {switchTab === "allchats" &&
+            chats?.map((chat) => (
               <div key={chat._id} onClick={() => setSelectedChat(chat)}>
                 <ChatsAvtar data={chat} />
               </div>
             ))}
+          {switchTab === "people" &&
+            chats
+              .filter((chat) => chat.isGroupChat === false) // Add the appropriate filter condition here
+              .map((chat) => (
+                <div key={chat._id} onClick={() => setSelectedChat(chat)}>
+                  <ChatsAvtar data={chat} />
+                </div>
+              ))}
+          {switchTab === "groups" &&
+            chats
+              .filter((chat) => chat.isGroupChat === true)
+              .map((chat) => (
+                <div key={chat._id} onClick={() => setSelectedChat(chat)}>
+                  <ChatsAvtar data={chat} />
+                </div>
+              ))}
         </div>
       </div>
       {/* Chats Ends */}
