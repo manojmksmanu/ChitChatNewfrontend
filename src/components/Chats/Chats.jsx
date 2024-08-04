@@ -3,7 +3,9 @@ import { motion } from "framer-motion";
 import { BiSolidMessageSquareAdd } from "react-icons/bi";
 import AllChats from "../AllChats/AllChats";
 import FindChats from "../FindChats/FindChats";
+import { contextData } from "../../context/Context";
 const Chats = () => {
+  const {selectedChat}=contextData()
   const [toggleFindChats, setToggleFindChats] = useState(false);
   const toggleChats = () => {
     setToggleFindChats(!toggleFindChats);
@@ -11,7 +13,7 @@ const Chats = () => {
   return (
     <div
       className={`relative md:block md:w-52 w-full ${
-        1 === 1 ? "hidden" : "block"
+        selectedChat ? "hidden" : "block"
       }`}
     >
       <motion.span
