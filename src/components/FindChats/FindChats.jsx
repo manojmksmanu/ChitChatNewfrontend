@@ -53,7 +53,7 @@ const FindChats = ({ toggleChats }) => {
         { _id: userId },
         config
       );
-      setSelectedChat(data);
+      setSelectedChat([data]);
       toggleChats();
       if (!chats.find((c) => c._id === data._id)) {
         setChats([data, ...chats]);

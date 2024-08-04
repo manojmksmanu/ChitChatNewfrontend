@@ -3,12 +3,14 @@ import { contextData } from "../../context/Context";
 import { getSender } from "../../chatLoggics/chatLoggics";
 
 const ChatsAvtar = ({ data }) => {
-  const { user } = contextData();
+  const { user, selectedChat } = contextData();
   const sender = getSender(user, data.users);
 
   return (
     <div
-      className={`flex md:w-full items-center gap-2 cursor-pointer md:p-3 p-3 relative dark:text-slate-50 `}
+      className={`flex md:w-full items-center gap-2 cursor-pointer md:p-3 p-3 relative dark:text-slate-50 ${
+        selectedChat === data ? "bg-blue-600 text-white" : ""
+      }`}
     >
       <img
         className="md:w-8 w-8 md:h-8  h-8 rounded-full bg-white drop-shadow-lg "
