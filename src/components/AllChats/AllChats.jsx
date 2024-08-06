@@ -35,8 +35,10 @@ const AllChats = () => {
 
   return (
     <div className="h-full md:p-1 p-1 flex flex-col custom_scroll_bar w-full relative">
-      <div className="font-semibold text-slate-600 dark:text-slate-100 mb-3">
-        All Chats
+      <div className="font-semibold text-slate-600 dark:text-slate-100 mb-3 pl-1">
+        {switchTab === "allchats" && <span>All Chats</span>}
+        {switchTab === "people" && <span>All Peoples</span>}
+        {switchTab === "groups" && <span>All Groups</span>}
       </div>
       {/* Chats */}
       <div className="flex-grow bg-white dark:bg-[#001329] overflow-x-hidden overflow-auto rounded-md">

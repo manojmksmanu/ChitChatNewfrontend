@@ -26,11 +26,11 @@ const Sidebar = () => {
     },
     { name: "people", icon: <SlPeople />, label: "Peoples" },
     { name: "groups", icon: <TbUsersGroup />, label: "Groups" },
-    {
-      name: "creategroup",
-      icon: <MdOutlineGroupAdd />,
-      label: "Create Group",
-    },
+    // {
+    //   name: "creategroup",
+    //   icon: <MdOutlineGroupAdd />,
+    //   label: "Create Group",
+    // },
   ];
 
   const navSwitch = (e) => {

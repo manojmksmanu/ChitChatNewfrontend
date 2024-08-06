@@ -1,6 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { ImSad } from "react-icons/im";
+import { contextData } from "../../context/Context";
+import { useNavigate } from "react-router-dom";
 const Modal = () => {
+  const navigate = useNavigate();
+  const { setUser } = contextData();
+  const Logout = () => {
+    setUser(null);
+    localStorage.removeItem("userInfo");
+    navigate("/");
+  };
+
   return (
     <div>
       {/* <!-- Main modal --> */}
@@ -34,7 +44,7 @@ const Modal = () => {
               <span className="sr-only">Close modal</span>
             </button>
             <div className="flex justify-center">
-              <ImSad className="text-4xl text-blue-500"/>
+              <ImSad className="text-4xl text-blue-500" />
             </div>
             <p className="mb-4 text-gray-500 dark:text-gray-300">
               Sure, Do you want to Logout?
@@ -50,6 +60,7 @@ const Modal = () => {
               <button
                 type="submit"
                 className="py-2 px-3 text-sm font-medium text-center text-white bg-blue-700 rounded-lg"
+                onClick={()=>Logout()}
               >
                 Yes, I'm sure
               </button>

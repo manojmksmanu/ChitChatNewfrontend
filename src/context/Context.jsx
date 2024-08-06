@@ -20,6 +20,7 @@ export const Provider = ({ children }) => {
         selectedChat,
         setSelectedChat,
         user,
+        setUser,
         chats,
         setChats,
         switchTab,

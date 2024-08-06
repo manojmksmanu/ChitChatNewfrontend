@@ -4,7 +4,7 @@ import { CiSearch } from "react-icons/ci";
 import { contextData } from "../../context/Context";
 import axios from "axios";
 import { toast } from "react-toastify";
-const FindChats = ({ toggleChats }) => {
+const FindChats = ({ toggleFindChats, setToggleFindChats }) => {
   const { user, setChats, chats, setSelectedChat } = contextData();
   const [searchResult, setSearchResult] = useState();
   const [loading, setLoading] = useState(false);
@@ -54,7 +54,7 @@ const FindChats = ({ toggleChats }) => {
         config
       );
       setSelectedChat([data]);
-      toggleChats();
+      setToggleFindChats(!toggleFindChats);
       if (!chats.find((c) => c._id === data._id)) {
         setChats([data, ...chats]);
       }
