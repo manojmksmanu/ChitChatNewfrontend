@@ -1,13 +1,11 @@
 import React, { useState } from "react";
 import Sidebar from "../components/SideNavbar/SideNavbar";
-import AllChats from "../components/AllChats/AllChats";
 import MessageSection from "../components/MessageSection/MessageSection";
-import { BiSolidMessageSquareAdd } from "react-icons/bi";
-import FindChats from "../components/FindChats/FindChats";
 import { motion } from "framer-motion";
 import Modal from "../components/ConfirmationModalLogout/Modal";
 import { contextData } from "../context/Context";
 import Chats from "../components/Chats/Chats";
+
 const Home = () => {
   const { selectedChat, setSelectedChat } = contextData();
 

@@ -4,7 +4,7 @@ import { contextData } from "../../context/Context";
 import axios from "axios";
 import { toast } from "react-toastify";
 
-const AllChats = () => {
+const AllChats = ({ toggleCreateGroup, setToggleCreateGroup }) => {
   const { chats, setChats, user, selectedChat, setSelectedChat, switchTab } =
     contextData();
   const fetchChats = async () => {

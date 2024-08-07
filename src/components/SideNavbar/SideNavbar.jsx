@@ -13,7 +13,7 @@ import { contextData } from "../../context/Context";
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [navToggle, setNavToggle] = useState("allchats");
-  const { user, switchTab, setSwitchTab,setSelectedChat } = contextData();
+  const { user, switchTab, setSwitchTab, setSelectedChat } = contextData();
   console.log(switchTab);
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
@@ -37,7 +37,6 @@ const Sidebar = () => {
     setNavToggle(e);
     setSwitchTab(e);
     setSelectedChat();
-    
   };
 
   return (
@@ -79,6 +78,7 @@ const Sidebar = () => {
               </ul>
             </nav>
           </div>
+
           {/* ---logout section----  */}
           <div className="flex flex-col justify-center p-1 gap-2">
             <div className="md:p-3 p-0">
