@@ -19,7 +19,7 @@ const LoginSignup = () => {
       <div className="container flex flex-col items-center justify-center min-h-screen md:max-w-sm">
         <div className="flex justify-center">
           <div className="logo-container">
-            <div className="logo flex text-white font-black text-4xl">
+            <div className="logo flex text-blue-600 dark:text-white font-black text-4xl">
               <motion.div className="c c1">C</motion.div>
               <motion.div
                 className="c c2"

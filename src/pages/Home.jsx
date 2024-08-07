@@ -13,10 +13,9 @@ const Home = () => {
     <div className="flex h-screen overflow-hidden bg-[#D1E6FF]  dark:bg-[#002047]">
       <Sidebar />
       {/* ---All chats --  */}
-     
- <Chats />
-   
-     
+
+      <Chats />
+
       {/* ---All chats Ends --  */}
       <div
         className={`flex-grow p-1  md:block  ${
@@ -26,7 +25,7 @@ const Home = () => {
         {/* <UserProfileSection/> */}
         <MessageSection />
       </div>
-      <ToastContainer/>
+      <ToastContainer />
       <Modal />
     </div>
   );
