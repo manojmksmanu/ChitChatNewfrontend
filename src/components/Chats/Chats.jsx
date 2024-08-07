@@ -14,7 +14,7 @@ const Chats = () => {
 
   return (
     <div
-      className={`relative md:block md:w-52 w-full ${
+      className={`relative md:block md:w-60 w-full ${
         selectedChat ? "hidden" : "block"
       }`}
     >
@@ -33,7 +33,7 @@ const Chats = () => {
           whileHover={{ scale: 0.98 }}
           whileTap={{ scale: 0.94 }}
         >
-          <MdGroupAdd className="cursor-pointer text-blue-700 text-4xl absolute z-20 bottom-2 right-2" />
+          <MdGroupAdd className="cursor-pointer  text-blue-500 text-4xl absolute z-20 bottom-14 right-2" />
         </motion.span>
       )}
 
