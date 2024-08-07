@@ -1,22 +1,19 @@
 import React, { useState } from "react";
 import Top from "../SmallComponents/ComponentOfMessageSection/Top";
-import Bottom from "../SmallComponents/ComponentOfMessageSection/Bottom";
+import AllMessages from "../SmallComponents/ComponentOfMessageSection/AllMessages";
 import { contextData } from "../../context/Context";
-import SelectChatAnimation  from '../misc/Animation/SelectChatAnimation'
+import SelectChatAnimation from "../misc/Animation/SelectChatAnimation";
 // import {selectChatAnimation} from "../misc/LottiFilesAnimation/selectChat/selectChat";
 
 const MessageSection = () => {
   const { selectedChat } = contextData();
   return (
     <div className="w-full h-full flex flex-col">
-      <div className="h-[57px]">Hello</div>
+      {/* <div className="h-[57px]">Hello</div> */}
       {selectedChat ? (
         <>
-          <div>
-            <Top />
-          </div>
           <div className="flex-grow mt-2">
-            <Bottom />
+            <AllMessages />
           </div>
         </>
       ) : (
