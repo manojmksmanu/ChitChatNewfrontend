@@ -98,7 +98,7 @@ const FindChats = ({ toggleFindChats, setToggleFindChats }) => {
               </div>
             ))
           ) : (
-            <div>No results found</div>
+            <div></div>
           )}
         </div>
       </div>

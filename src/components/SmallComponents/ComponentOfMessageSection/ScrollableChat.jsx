@@ -43,11 +43,12 @@ const ScrollableChat = ({ messages }) => {
                       alt="Sender"
                     />
                   )}
+
                   <motion.div
-                    className={`md:max-w-72 sm:max-w-44 max-w-32 ${
+                    className={` md:max-w-72 sm:max-w-44 max-w-32 ${
                       m.sender._id === user._id
                         ? "bg-white text-slate-900"
-                        : "bg-slate-900 text-slate-100"
+                        : "bg-blue-700 text-slate-100"
                     } shadow-md p-1 rounded-sm text-xs break-words`}
                     initial={{ opacity: 0, scale: 0 }}
                     animate={{ opacity: 1, scale: 1 }}

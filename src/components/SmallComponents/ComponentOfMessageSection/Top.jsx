@@ -40,6 +40,7 @@ const Top = ({isTyping}) => {
             </span>
         </div>
       </div>
+      
       <CiMenuKebab className="cursor-pointer" />
     </div>
   );

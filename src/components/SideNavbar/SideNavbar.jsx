@@ -81,8 +81,13 @@ const Sidebar = () => {
 
           {/* ---logout section----  */}
           <div className="flex flex-col justify-center p-1 gap-2">
-            <div className="md:p-3 p-0">
-              {user && <img className="rounded-md" src={user.pic} />}
+            <div className="bg-white dark:bg-gray-700 dark:text-white drop-shadow-md rounded flex gap-2 items-center md:p-1 p-0">
+              {user && (
+                <img className="rounded-md md:w-10 md:h-10 " src={user.pic} />
+              )}
+              <span className="text-sm md:block hidden">
+                {user && user.name}
+              </span>
             </div>
             <ThemeToggle />
             <motion.div
