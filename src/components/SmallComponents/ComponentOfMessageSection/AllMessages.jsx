@@ -13,8 +13,8 @@ let socket, selectedChatCompare;
 
 const AllMessages = ({ GroupModal, setGroupModal }) => {
   const [showPicker, setShowPicker] = useState(false);
-  const { user, selectedChat, FetchChatsAgain,baseurl } = contextData();
-  const [messages, setMessages] = useState();
+  const { user, selectedChat, FetchChatsAgain, baseurl } = contextData();
+  const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
   const [newMessage, setNewMessage] = useState("");
   const [socketConnected, setSocketConnected] = useState(false);
@@ -31,21 +31,36 @@ const AllMessages = ({ GroupModal, setGroupModal }) => {
   };
 
   let typingTimeout;
+
+  // Combined the socket connection and event listeners setup into a single useEffect
   useEffect(() => {
-    socket = io(baseurl);
+    socket = io('https://chitchat-kuxu.onrender.com');
     if (user) {
       socket.emit("setup", user);
     }
+
     socket.on("connection", () => {
       setSocketConnected(true);
     });
+
     socket.on("typing", () => setIsTyping(true));
     socket.on("stop typing", () => setIsTyping(false));
+
+    // Handle incoming messages
     socket.on("new message", (newMessage) => {
-      setMessages((prevMessages) => [...prevMessages, newMessage]);
+      if (
+        selectedChatCompare &&
+        selectedChatCompare._id === newMessage.chat._id
+      ) {
+        setMessages((prevMessages) => [...prevMessages, newMessage]);
+      } else {
+        // Notification logic can go here if needed
+      }
     });
 
     return () => {
+      // Clean up all socket listeners on component unmount
+      socket.off("connection");
       socket.off("typing");
       socket.off("stop typing");
       socket.off("new message");
@@ -72,8 +87,6 @@ const AllMessages = ({ GroupModal, setGroupModal }) => {
         config
       );
       setMessages(data);
-      setLoading(false);
-      // setFetchAgain(!fetchAgain);
       socket.emit("join chat", selectedChat._id);
     } catch (error) {
       toast.error("Error fetching messages");
@@ -82,10 +95,6 @@ const AllMessages = ({ GroupModal, setGroupModal }) => {
     }
   };
 
-  useEffect(() => {
-    fetchMessages();
-    selectedChatCompare = selectedChat;
-  }, [selectedChat]);
   const sendMessage = async (e) => {
     if (e.type === "click" || (e.key === "Enter" && !e.shiftKey)) {
       e.preventDefault();
@@ -130,17 +139,7 @@ const AllMessages = ({ GroupModal, setGroupModal }) => {
       socket.emit("stop typing", selectedChat._id);
     }, 3000); // 3 seconds
   };
-  useEffect(() => {
-    socket.on("messageR", (newMessageReceived) => {
-      console.log(newMessageReceived, "newR");
-      if (newMessageReceived) {
-        setMessages((prevMessages) => [...prevMessages, newMessageReceived]);
-      }
-      newMessageReceived
-        ? setFetchAgain(!fetchAgain)
-        : setFetchAgain(!fetchAgain);
-    });
-  }, [messages]);
+
   return (
     <div>
       <div className=" mb-3">

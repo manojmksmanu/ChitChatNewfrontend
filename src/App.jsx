@@ -9,7 +9,7 @@ import { contextData } from "./context/Context";
 function App() {
   const [apiRunning, setApiRunning] = useState(false);
   const { baseurl } = contextData();
-  console.log(baseurl)
+
   useEffect(() => {
     const checkApiStatus = async () => {
       try {
