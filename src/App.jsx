@@ -1,7 +1,6 @@
 import "./App.css";
 import { useEffect, useState } from "react";
 import FrontPage from "./components/PageLoading/FrontPage";
-import { contextData } from "./context/Context";
 import Home from "./pages/Home";
 import Login_SignUp from "./pages/Login_Signup";
 import { Route, Routes } from "react-router-dom";

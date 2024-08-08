@@ -45,7 +45,7 @@ const ScrollableChat = ({ messages }) => {
                   )}
 
                   <motion.div
-                    className={` md:max-w-72 sm:max-w-44 max-w-32 ${
+                    className={` md:max-w-72 sm:max-w-44 max-w-28 ${
                       m.sender._id === user._id
                         ? "bg-white text-slate-900"
                         : "bg-blue-700 text-slate-100"
