@@ -48,6 +48,7 @@ const AllMessages = ({ GroupModal, setGroupModal }) => {
 
     // Handle incoming messages
     socket.on("new message", (newMessage) => {
+      console.log(newMessage)
       if (
         selectedChatCompare &&
         selectedChatCompare._id === newMessage.chat._id
