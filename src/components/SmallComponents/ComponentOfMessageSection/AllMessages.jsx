@@ -34,7 +34,7 @@ const AllMessages = ({ GroupModal, setGroupModal }) => {
 
   // Combined the socket connection and event listeners setup into a single useEffect
   useEffect(() => {
-    socket = io('https://chitchat-kuxu.onrender.com');
+    socket = io(baseurl);
     if (user) {
       socket.emit("setup", user);
     }
