@@ -7,7 +7,7 @@ import { contextData } from "../context/Context";
 import Chats from "../components/Chats/Chats";
 import { ToastContainer } from "react-toastify";
 const Home = () => {
-  const { selectedChat, setSelectedChat } = contextData();
+  const { selectedChat } = contextData();
 
   return (
     <div className="flex h-screen overflow-hidden bg-[#D1E6FF]  dark:bg-[#002047]">

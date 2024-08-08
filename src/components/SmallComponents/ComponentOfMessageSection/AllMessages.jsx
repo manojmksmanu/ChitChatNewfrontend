@@ -11,7 +11,7 @@ import Top from "./Top";
 const ENDPOINT = "http://localhost:5000";
 let socket, selectedChatCompare;
 
-const AllMessages = () => {
+const AllMessages = ({ GroupModal, setGroupModal }) => {
   const [showPicker, setShowPicker] = useState(false);
   const { user, selectedChat, FetchChatsAgain } = contextData();
   const [messages, setMessages] = useState();
@@ -24,6 +24,10 @@ const AllMessages = () => {
 
   const handleEmoji = (e) => {
     setNewMessage((prev) => prev + e.emoji);
+  };
+
+  const handleGroupModal = () => {
+    setGroupModal(!GroupModal);
   };
 
   let typingTimeout;
@@ -140,7 +144,7 @@ const AllMessages = () => {
   return (
     <div>
       <div className=" mb-3">
-        <Top isTyping={isTyping} />
+        <Top isTyping={isTyping} handleGroupModal={handleGroupModal} />
       </div>
       <div className="bg-white dark:bg-[#001329] w-full h-full flex flex-col flex-grow rounded">
         <div className="flex-grow flex flex-col">

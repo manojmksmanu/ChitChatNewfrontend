@@ -4,6 +4,7 @@ import { contextData } from "../../context/Context";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { motion, AnimatePresence } from "framer-motion";
+
 const AllChats = () => {
   const {
     chats,
@@ -31,7 +32,6 @@ const AllChats = () => {
       toast.error("Failed to Load the chats");
     }
   };
-
   useEffect(() => {
     fetchChats();
   }, [fetchChatsAgain]);

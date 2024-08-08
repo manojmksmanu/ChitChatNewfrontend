@@ -3,9 +3,8 @@ import { CiMenuKebab } from "react-icons/ci";
 import { contextData } from "../../../context/Context";
 import { getSender } from "../../../chatLoggics/chatLoggics";
 
-const Top = ({isTyping}) => {
+const Top = ({ isTyping, handleGroupModal }) => {
   const { user, selectedChat } = contextData();
-
 
   // Get the sender object if it's a one-on-one chat
   const sender =
@@ -35,13 +34,14 @@ const Top = ({isTyping}) => {
               ? selectedChat.chatName
               : "No Chat Selected"}
           </span>
-          <span className="text-[12px]">
-            {isTyping?"typing...":""}
-            </span>
+          <span className="text-[12px]">{isTyping ? "typing..." : ""}</span>
         </div>
       </div>
-      
-      <CiMenuKebab className="cursor-pointer" />
+
+      <CiMenuKebab
+        onClick={selectedChat.isGroupChat?handleGroupModal:null}
+        className="cursor-pointer"
+      />
     </div>
   );
 };
