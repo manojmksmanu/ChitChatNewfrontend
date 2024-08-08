@@ -4,7 +4,7 @@ import { contextData } from "../../context/Context";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { motion, AnimatePresence } from "framer-motion";
-const AllChats = ({ toggleCreateGroup, setToggleCreateGroup }) => {
+const AllChats = () => {
   const {
     chats,
     setChats,
@@ -35,10 +35,6 @@ const AllChats = ({ toggleCreateGroup, setToggleCreateGroup }) => {
   useEffect(() => {
     fetchChats();
   }, [fetchChatsAgain]);
-
-  // if (!chats) {
-  //   return <div>Loading...</div>; // Display loading message or spinner
-  // }
 
   return (
     <div className="h-full md:p-1 p-1 flex flex-col custom_scroll_bar w-full relative">
