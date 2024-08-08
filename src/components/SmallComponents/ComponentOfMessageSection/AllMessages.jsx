@@ -41,6 +41,7 @@ const AllMessages = ({ GroupModal, setGroupModal }) => {
 
     socket.on("connection", () => {
       setSocketConnected(true);
+      console.log('user is contected')
     });
 
     socket.on("typing", () => setIsTyping(true));
