@@ -13,8 +13,7 @@ let socket, selectedChatCompare;
 
 const AllMessages = () => {
   const [showPicker, setShowPicker] = useState(false);
-  const { user, selectedChat, setSelectedChat, notification, setNotification } =
-    contextData();
+  const { user, selectedChat, FetchChatsAgain } = contextData();
   const [messages, setMessages] = useState();
   const [loading, setLoading] = useState(false);
   const [newMessage, setNewMessage] = useState("");
@@ -104,6 +103,7 @@ const AllMessages = () => {
         );
         setNewMessage("");
         setMessages((prevMessages) => [...prevMessages, data]);
+        FetchChatsAgain();
         socket.emit("new message", data);
         socket.emit("stop typing", selectedChat._id);
       } catch (error) {
@@ -129,16 +129,13 @@ const AllMessages = () => {
   useEffect(() => {
     socket.on("messageR", (newMessageReceived) => {
       console.log(newMessageReceived, "newR");
-        if (newMessageReceived) {
-          console.log("ello")
-          setMessages((prevMessages) => [...prevMessages, newMessageReceived]);
-        }
+      if (newMessageReceived) {
+        console.log("ello");
+        setMessages((prevMessages) => [...prevMessages, newMessageReceived]);
+      }
       newMessageReceived
         ? setFetchAgain(!fetchAgain)
         : setFetchAgain(!fetchAgain);
-      
-      
- 
     });
   }, [messages]);
   return (

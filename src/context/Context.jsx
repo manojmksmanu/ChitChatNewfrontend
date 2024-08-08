@@ -8,6 +8,11 @@ export const Provider = ({ children }) => {
   const [selectedChat, setSelectedChat] = useState();
   const [chats, setChats] = useState();
   const [switchTab, setSwitchTab] = useState("allchats"); //to swtich tabs allchats / peoples/ groups/ create group
+  const [fetchChatsAgain,setFetchChatsAgain]=useState(false);
+  const FetchChatsAgain =()=>{
+    setFetchChatsAgain(!fetchChatsAgain);
+  }
+
   useEffect(() => {
     const userInfo = JSON.parse(localStorage.getItem("userInfo"));
     setUser(userInfo);
@@ -26,6 +31,8 @@ export const Provider = ({ children }) => {
         setChats,
         switchTab,
         setSwitchTab,
+        FetchChatsAgain,
+        fetchChatsAgain,
       }}
     >
       {children}
