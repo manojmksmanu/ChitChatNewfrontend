@@ -4,6 +4,7 @@ import { contextData } from "../../context/Context";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { motion, AnimatePresence } from "framer-motion";
+import FrontPage from "../PageLoading/FrontPage";
 
 const AllChats = () => {
   const { baseurl } = contextData();
@@ -44,75 +45,91 @@ const AllChats = () => {
       {/* Chats */}
       <div className="flex-grow bg-white dark:bg-[#001329] overflow-x-hidden overflow-auto rounded-md">
         <div className="flex flex-col ">
-          <AnimatePresence>
-            {switchTab === "allchats" &&
-              chats?.map((chat) => (
+          {chats && (
+            <AnimatePresence>
+              {switchTab === "allchats" &&
+                chats?.map((chat) => (
+                  <motion.div
+                    key={chat._id}
+                    onClick={() => setSelectedChat(chat)}
+                    className={
+                      selectedChat && selectedChat._id === chat._id
+                        ? "bg-blue-700  text-white cursor-pointer "
+                        : "cursor-pointer  hover:bg-blue-500 hover:text-white"
+                    }
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 10 }}
+                    layout
+                    transition={{ duration: 0.2 }}
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    <ChatsAvtar data={chat} />
+                  </motion.div>
+                ))}
+              {switchTab === "people" &&
+                chats
+                  .filter((chat) => chat.isGroupChat === false) // Add the appropriate filter condition here
+                  .map((chat) => (
+                    <motion.div
+                      key={chat._id}
+                      onClick={() => setSelectedChat(chat)}
+                      className={
+                        selectedChat && selectedChat._id === chat._id
+                          ? "bg-blue-700  text-white cursor-pointer "
+                          : "cursor-pointer  hover:bg-blue-500 hover:text-white"
+                      }
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: 10 }}
+                      layout
+                      transition={{ duration: 0.2 }}
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      <ChatsAvtar data={chat} />
+                    </motion.div>
+                  ))}
+              {switchTab === "groups" &&
+                chats
+                  .filter((chat) => chat.isGroupChat === true)
+                  .map((chat) => (
+                    <motion.div
+                      key={chat._id}
+                      onClick={() => setSelectedChat(chat)}
+                      className={
+                        selectedChat && selectedChat._id === chat._id
+                          ? "bg-blue-700  text-white cursor-pointer "
+                          : "cursor-pointer  hover:bg-blue-500 hover:text-white"
+                      }
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: 10 }}
+                      layout
+                      transition={{ duration: 0.2 }}
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      <ChatsAvtar data={chat} />
+                    </motion.div>
+                  ))}
+            </AnimatePresence>
+          )}
+          {!chats && (
+            <div>
+              <div className="logo h-[calc(100vh-200px)] flex items-center justify-center text-blue-600 dark:text-white font-black text-4xl">
+                <motion.div className="c c1">C</motion.div>
                 <motion.div
-                  key={chat._id}
-                  onClick={() => setSelectedChat(chat)}
-                  className={
-                    selectedChat && selectedChat._id === chat._id
-                      ? "bg-blue-700  text-white cursor-pointer "
-                      : "cursor-pointer  hover:bg-blue-500 hover:text-white"
-                  }
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 10 }}
-                  layout
-                  transition={{ duration: 0.2 }}
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
+                  className="c c2"
+                  animate={{ rotate: [-20, 10, -20] }}
+                  transition={{ repeat: Infinity, duration: 2 }}
                 >
-                  <ChatsAvtar data={chat} />
+                  C
                 </motion.div>
-              ))}
-            {switchTab === "people" &&
-              chats
-                .filter((chat) => chat.isGroupChat === false) // Add the appropriate filter condition here
-                .map((chat) => (
-                  <motion.div
-                    key={chat._id}
-                    onClick={() => setSelectedChat(chat)}
-                    className={
-                      selectedChat && selectedChat._id === chat._id
-                        ? "bg-blue-700  text-white cursor-pointer "
-                        : "cursor-pointer  hover:bg-blue-500 hover:text-white"
-                    }
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 10 }}
-                    layout
-                    transition={{ duration: 0.2 }}
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                  >
-                    <ChatsAvtar data={chat} />
-                  </motion.div>
-                ))}
-            {switchTab === "groups" &&
-              chats
-                .filter((chat) => chat.isGroupChat === true)
-                .map((chat) => (
-                  <motion.div
-                    key={chat._id}
-                    onClick={() => setSelectedChat(chat)}
-                    className={
-                      selectedChat && selectedChat._id === chat._id
-                        ? "bg-blue-700  text-white cursor-pointer "
-                        : "cursor-pointer  hover:bg-blue-500 hover:text-white"
-                    }
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 10 }}
-                    layout
-                    transition={{ duration: 0.2 }}
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                  >
-                    <ChatsAvtar data={chat} />
-                  </motion.div>
-                ))}
-          </AnimatePresence>
+              </div>
+            </div>
+          )}
         </div>
       </div>
       {/* Chats Ends */}
