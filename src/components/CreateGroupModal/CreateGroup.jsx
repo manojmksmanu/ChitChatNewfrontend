@@ -9,7 +9,7 @@ import Badge from "../SmallComponents/SelectedUserBadgeGroup/Badge";
 const CreateGroup = ({ toggleFindChats, setToggleFindChats }) => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
-  const { user, setChats, chats, setSelectedChat } = contextData();
+  const { user, setChats, chats, baseurl } = contextData();
 
   const [loading, setLoading] = useState(false);
   const [groupChatName, setGroupChatName] = useState("");
@@ -38,7 +38,7 @@ const CreateGroup = ({ toggleFindChats, setToggleFindChats }) => {
         },
       };
       const { data } = await axios.get(
-        `http://localhost:5000/api/user?search=${searchTerm}`,
+        `${baseurl}api/user?search=${searchTerm}`,
         config
       );
       setLoading(false);
@@ -70,40 +70,40 @@ const CreateGroup = ({ toggleFindChats, setToggleFindChats }) => {
     );
     toast.success("User removed successfully");
   };
-const handleSubmit = async () => {
-  if (!groupChatName || !selectedUser.length) {
-    toast.warning("Please fill all the fields");
-    return;
-  }
-  if (chats.some((chat) => chat.chatName === groupChatName)) {
-    toast.warning("Name is already used");
-    return;
-  }
-  try {
-    setLoading(true);
-    const config = {
-      headers: {
-        Authorization: `Bearer ${user.token}`,
-      },
-    };
-    const { data } = await axios.post(
-      `http://localhost:5000/api/chat/group`,
-      {
-        name: groupChatName,
-        users: JSON.stringify(selectedUser.map((u) => u._id)),
-        groupPic: groupPic,
-      },
-      config
-    );
-    setChats([data, ...chats]);
-    setLoading(false);
-    toast.success("Group is Created");
-    setToggleFindChats(false);
-  } catch (error) {
-    setLoading(false);
-    toast.error("Group Not Created");
-  }
-};
+  const handleSubmit = async () => {
+    if (!groupChatName || !selectedUser.length) {
+      toast.warning("Please fill all the fields");
+      return;
+    }
+    if (chats.some((chat) => chat.chatName === groupChatName)) {
+      toast.warning("Name is already used");
+      return;
+    }
+    try {
+      setLoading(true);
+      const config = {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      };
+      const { data } = await axios.post(
+        `${baseurl}api/chat/group`,
+        {
+          name: groupChatName,
+          users: JSON.stringify(selectedUser.map((u) => u._id)),
+          groupPic: groupPic,
+        },
+        config
+      );
+      setChats([data, ...chats]);
+      setLoading(false);
+      toast.success("Group is Created");
+      setToggleFindChats(false);
+    } catch (error) {
+      setLoading(false);
+      toast.error("Group Not Created");
+    }
+  };
   const postDetails = async (pics) => {
     setLoading(true);
     if (!pics) {
@@ -238,7 +238,7 @@ const handleSubmit = async () => {
       <button
         type="button"
         class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-3 py-2 text-center  mb-2 mt-1"
-        onClick={()=>handleSubmit()}
+        onClick={() => handleSubmit()}
       >
         Create Group
       </button>

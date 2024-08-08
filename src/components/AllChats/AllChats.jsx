@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import { motion, AnimatePresence } from "framer-motion";
 
 const AllChats = () => {
+  const { baseurl } = contextData();
   const {
     chats,
     setChats,
@@ -23,10 +24,7 @@ const AllChats = () => {
           Authorization: `Bearer ${user.token}`,
         },
       };
-      const { data } = await axios.get(
-        "http://localhost:5000/api/chat/chats",
-        config
-      );
+      const { data } = await axios.get(`${baseurl}api/chat/chats`, config);
       setChats(data);
     } catch (error) {
       toast.error("Failed to Load the chats");

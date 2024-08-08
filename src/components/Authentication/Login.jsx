@@ -2,7 +2,9 @@ import React, { useState } from "react";
 import axios from "axios";
 import { toast, Bounce } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { contextData } from "../../context/Context";
 const Login = () => {
+  const { baseurl } = contextData();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [SignInloading, setSignInLoading] = useState("false");
@@ -32,7 +34,7 @@ const Login = () => {
         },
       };
       const { data } = await axios.post(
-        "http://localhost:5000/api/login",
+        `${baseurl}api/login`,
         {
           email,
           password,

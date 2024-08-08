@@ -8,12 +8,12 @@ import { contextData } from "../../../context/Context";
 import { motion } from "framer-motion";
 import Top from "./Top";
 
-const ENDPOINT = "http://localhost:5000";
+
 let socket, selectedChatCompare;
 
 const AllMessages = ({ GroupModal, setGroupModal }) => {
   const [showPicker, setShowPicker] = useState(false);
-  const { user, selectedChat, FetchChatsAgain } = contextData();
+  const { user, selectedChat, FetchChatsAgain,baseurl } = contextData();
   const [messages, setMessages] = useState();
   const [loading, setLoading] = useState(false);
   const [newMessage, setNewMessage] = useState("");
@@ -32,7 +32,7 @@ const AllMessages = ({ GroupModal, setGroupModal }) => {
 
   let typingTimeout;
   useEffect(() => {
-    socket = io(ENDPOINT);
+    socket = io(baseurl);
     if (user) {
       socket.emit("setup", user);
     }
@@ -68,7 +68,7 @@ const AllMessages = ({ GroupModal, setGroupModal }) => {
       };
       setLoading(true);
       const { data } = await axios.get(
-        `http://localhost:5000/api/message/${selectedChat._id}`,
+        `${baseurl}api/message/${selectedChat._id}`,
         config
       );
       setMessages(data);
@@ -101,7 +101,7 @@ const AllMessages = ({ GroupModal, setGroupModal }) => {
           },
         };
         const { data } = await axios.post(
-          "http://localhost:5000/api/message/message",
+          `${baseurl}api/message/message`,
           { content: newMessage, chatId: selectedChat._id },
           config
         );

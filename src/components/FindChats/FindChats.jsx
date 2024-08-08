@@ -5,6 +5,7 @@ import { contextData } from "../../context/Context";
 import axios from "axios";
 import { toast } from "react-toastify";
 const FindChats = ({ toggleFindChats, setToggleFindChats }) => {
+  const {baseurl}=contextData()
   const { user, setChats, chats, setSelectedChat } = contextData();
   const [searchResult, setSearchResult] = useState();
   const [loading, setLoading] = useState(false);
@@ -19,7 +20,7 @@ const FindChats = ({ toggleFindChats, setToggleFindChats }) => {
         },
       };
       const { data } = await axios.get(
-        `http://localhost:5000/api/user?search=${searchTerm}`,
+        `${baseurl}api/user?search=${searchTerm}`,
         config
       );
       setLoading(false);
@@ -49,7 +50,7 @@ const FindChats = ({ toggleFindChats, setToggleFindChats }) => {
       };
 
       const { data } = await axios.post(
-        "http://localhost:5000/api/chat/chats",
+        `${baseurl}api/chat/chats`,
         { _id: userId },
         config
       );

@@ -3,7 +3,9 @@ import axios from "axios";
 import { toast, Bounce } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
+import { contextData } from "../../context/Context";
 const Signup = ({ setIsSignUp }) => {
+  const { baseurl } = contextData();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -54,7 +56,7 @@ const Signup = ({ setIsSignUp }) => {
         },
       };
       const { data } = await axios.post(
-        "http://localhost:5000/api/user",
+        `${baseurl}api/user`,
         {
           name,
           email,

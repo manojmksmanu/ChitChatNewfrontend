@@ -5,12 +5,16 @@ import Home from "./pages/Home";
 import Login_SignUp from "./pages/Login_Signup";
 import { Route, Routes } from "react-router-dom";
 import axios from "axios";
+import { contextData } from "./context/Context";
 function App() {
   const [apiRunning, setApiRunning] = useState(false);
+  const { baseurl } = contextData();
+  console.log(baseurl)
   useEffect(() => {
     const checkApiStatus = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/status");
+        const response = await axios.get(`${baseurl}status`);
+        console.log(response);
         if (
           response.status === 200 &&
           response.data.status === "API is running"
