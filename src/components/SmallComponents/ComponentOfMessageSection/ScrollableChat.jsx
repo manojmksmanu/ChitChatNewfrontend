@@ -23,7 +23,7 @@ const ScrollableChat = ({ messages }) => {
               );
 
             return (
-              <React.Fragment key={m._id}>
+              <React.Fragment key={i}>
                 {showDateSeparator && (
                   <div className="w-full flex justify-center my-2">
                     <span className="bg-gray-200 text-gray-700 text-xs py-1 px-3 rounded-full">

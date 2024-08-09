@@ -177,7 +177,7 @@ const CreateGroup = ({ toggleFindChats, setToggleFindChats }) => {
             )
           ) : (
             <img
-              class="rounded-full w-14 h-14"
+              className="rounded-full w-14 h-14"
               src="https://shorturl.at/Fmg9K"
               alt="image description"
             />
@@ -237,7 +237,7 @@ const CreateGroup = ({ toggleFindChats, setToggleFindChats }) => {
       </div>
       <button
         type="button"
-        class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-3 py-2 text-center  mb-2 mt-1"
+        className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-3 py-2 text-center  mb-2 mt-1"
         onClick={() => handleSubmit()}
       >
         Create Group
