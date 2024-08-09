@@ -11,7 +11,7 @@ export const Provider = ({ children }) => {
   const FetchChatsAgain =()=>{
     setFetchChatsAgain(!fetchChatsAgain);
   }
-const baseurl = "https://chitchat-kuxu.onrender.com/";
+const baseurl = "https://chitchatbackend-r5s6.onrender.com/";
   useEffect(() => {
     const userInfo = JSON.parse(localStorage.getItem("userInfo"));
     setUser(userInfo);
