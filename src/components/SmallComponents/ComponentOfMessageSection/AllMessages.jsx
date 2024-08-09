@@ -44,18 +44,18 @@ const AllMessages = ({ GroupModal, setGroupModal }) => {
 
     socket.on("connection", () => {
       setSocketConnected(true);
-      console.log("user is contected");
+   
     });
 
     socket.on("typing", () => setIsTyping(true));
     socket.on("stop typing", () => setIsTyping(false));
-    console.log(selectedChat._id, "outside");
+   
     // Handle incoming messages
     socket.on("messageR", (newMessageReceived) => {
       if (newMessageReceived) {
         FetchChatsAgain();
       }
-      console.log(newMessageReceived);
+   
       if (selectedChat._id === newMessageReceived.chat) {
         if (newMessageReceived.sender._id === user._id) {
         } else {

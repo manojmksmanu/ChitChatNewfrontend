@@ -14,7 +14,7 @@ function App() {
     const checkApiStatus = async () => {
       try {
         const response = await axios.get(`${baseurl}status`);
-        console.log(response);
+      
         if (
           response.status === 200 &&
           response.data.status === "API is running"

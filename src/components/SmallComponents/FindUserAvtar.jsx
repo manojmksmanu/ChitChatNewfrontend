@@ -1,7 +1,7 @@
 import React from "react";
 
 const FindUserAvtar = ({ data }) => {
-  console.log(data);
+
   return (
     <div
       className={`flex md:w-full items-center dark:text-slate-50 text-slate-700 gap-2 cursor-pointer md:p-3 p-3 relative hover:bg-blue-500 hover:text-white`}

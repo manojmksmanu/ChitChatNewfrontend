@@ -14,7 +14,7 @@ const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [navToggle, setNavToggle] = useState("allchats");
   const { user, switchTab, setSwitchTab, setSelectedChat } = contextData();
-  console.log(switchTab);
+
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
   };

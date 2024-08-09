@@ -3,8 +3,7 @@ import { contextData } from "../../context/Context";
 import Badge from "../SmallComponents/SelectedUserBadgeGroup/Badge";
 const GroupDetailsModal = ({ GroupModal }) => {
   const { selectedChat } = contextData();
-  console.log(selectedChat);
-  console.log(GroupModal);
+
   if (!GroupModal) {
     return;
   }

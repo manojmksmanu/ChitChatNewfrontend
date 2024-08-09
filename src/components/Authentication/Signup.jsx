@@ -15,7 +15,7 @@ const Signup = ({ setIsSignUp }) => {
   const [signUpLoading, setSignUpLoading] = useState(false);
   const navigate = useNavigate();
   const submitHandlerSignup = async () => {
-    console.log("clicked");
+   
     setSignUpLoading(true);
     if (!name || !email || !password || !confirmPassword) {
       toast.warn("Please fill all the fields", {
@@ -141,7 +141,7 @@ const Signup = ({ setIsSignUp }) => {
             theme: "light",
             transition: Bounce,
           });
-          console.log(pic);
+         
         } else {
           throw new Error(result.error.message);
         }
@@ -175,7 +175,7 @@ const Signup = ({ setIsSignUp }) => {
       setLoading(false);
     }
   };
-  console.log(loading);
+
   return (
     <div>
       <div className="relative flex items-center mt-8">

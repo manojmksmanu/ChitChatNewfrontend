@@ -10,7 +10,7 @@ const Login = () => {
   const [SignInloading, setSignInLoading] = useState("false");
   const navigate = useNavigate();
   const submitHandlerlogin = async () => {
-    console.log("clicked");
+  
     setSignInLoading(true);
     if (!email || !password) {
       toast.warn("Please fill all the fields", {
@@ -74,7 +74,7 @@ const handleUserCredential =()=>{
   setEmail("testuser@gmail.com");
   setPassword("12345");
 }
-  console.log(SignInloading, "dfdf");
+
   return (
     <div>
       {" "}
