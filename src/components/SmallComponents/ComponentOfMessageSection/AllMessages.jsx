@@ -7,7 +7,7 @@ import io from "socket.io-client";
 import { contextData } from "../../../context/Context";
 import { motion } from "framer-motion";
 import Top from "./Top";
-
+import { getSender } from "../../../chatLoggics/chatLoggics";
 
 let socket, selectedChatCompare;
 
@@ -31,7 +31,10 @@ const AllMessages = ({ GroupModal, setGroupModal }) => {
   };
 
   let typingTimeout;
-
+  useEffect(() => {
+    fetchMessages();
+    selectedChatCompare = selectedChat;
+  }, [selectedChat]);
   // Combined the socket connection and event listeners setup into a single useEffect
   useEffect(() => {
     socket = io(baseurl);
@@ -41,23 +44,35 @@ const AllMessages = ({ GroupModal, setGroupModal }) => {
 
     socket.on("connection", () => {
       setSocketConnected(true);
-      console.log('user is contected')
+      console.log("user is contected");
     });
 
     socket.on("typing", () => setIsTyping(true));
     socket.on("stop typing", () => setIsTyping(false));
-
+    console.log(selectedChat._id, "outside");
     // Handle incoming messages
-    socket.on("new message", (newMessage) => {
-      console.log(newMessage)
-      if (
-        selectedChatCompare &&
-        selectedChatCompare._id === newMessage.chat._id
-      ) {
-        setMessages((prevMessages) => [...prevMessages, newMessage]);
-      } else {
-        // Notification logic can go here if needed
+    socket.on("messageR", (newMessageReceived) => {
+      if (newMessageReceived) {
+        FetchChatsAgain();
       }
+      console.log(newMessageReceived);
+      if (selectedChat._id === newMessageReceived.chat) {
+        if (newMessageReceived.sender._id === user._id) {
+        } else {
+          setMessages((prevMessages) => [...prevMessages, newMessageReceived]);
+        }
+      } else {
+      }
+      //  if (
+      //    !selectedChatCompare ||
+      //    selectedChatCompare._id !== newMessageReceived.chat._id
+      //  ) {
+      //    // Notification logic can go here
+      //  } else {
+      //    setMessages((prevMessages) => [...prevMessages, newMessageReceived]);
+      //  }
+
+      FetchChatsAgain(); // Ensure this does not interfere with message updates
     });
 
     return () => {
@@ -69,11 +84,6 @@ const AllMessages = ({ GroupModal, setGroupModal }) => {
       if (typingTimeout) clearTimeout(typingTimeout);
     };
   }, [user]);
-
-  useEffect(() => {
-    fetchMessages();
-    selectedChatCompare = selectedChat;
-  }, [selectedChat]);
 
   const fetchMessages = async () => {
     if (!selectedChat) return;
