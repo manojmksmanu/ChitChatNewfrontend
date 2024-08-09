@@ -85,7 +85,7 @@ const Sidebar = () => {
               {user && (
                 <img className="rounded-md md:w-10 md:h-10 " src={user.pic} />
               )}
-              <span className="text-sm md:block hidden">
+              <span className="text-sm md:block hidden break-words  w-10 ">
                 {user && user.name}
               </span>
             </div>

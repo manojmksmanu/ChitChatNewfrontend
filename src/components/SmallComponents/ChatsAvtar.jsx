@@ -11,11 +11,11 @@ const ChatsAvtar = ({ data }) => {
     >
       <img
         className="md:w-8 w-8 md:h-8  h-8 rounded-full bg-white drop-shadow-lg "
-        src={!data.isGroupChat ? sender.pic : data.groupPic}
+        src={!data.isGroupChat ? sender && sender.pic : data.groupPic}
       />
       <div className="flex flex-col ">
         <div className=" text-[18px] flex items-center justify-between">
-          {!data.isGroupChat ? sender.name : data.chatName}
+          {!data.isGroupChat ? sender && sender.name : data.chatName}
           {/* <span className="text-[12px] ">9:00</span> */}
         </div>
         <div className="text-[12px] font-light">

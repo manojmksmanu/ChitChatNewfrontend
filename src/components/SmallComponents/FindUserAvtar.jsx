@@ -8,6 +8,7 @@ const FindUserAvtar = ({ data }) => {
     >
       <img
         className="md:w-8 md:h-8 w-8 h-8 rounded-full bg-white drop-shadow-lg "
+        src={data.pic}
       />
       <div className="flex flex-col ">
         <div className=" text-[18px] flex items-center justify-between">

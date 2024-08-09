@@ -45,7 +45,7 @@ const Signup = ({ setIsSignUp }) => {
         theme: "light",
         transition: Bounce,
       });
-      setLoading(false);
+      setSignUpLoading(false);
       return;
     }
 

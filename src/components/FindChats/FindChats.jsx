@@ -54,7 +54,8 @@ const FindChats = ({ toggleFindChats, setToggleFindChats }) => {
         { _id: userId },
         config
       );
-      setSelectedChat([data]);
+      console.log(data,'selected')
+      setSelectedChat(data);
       setToggleFindChats(!toggleFindChats);
       if (!chats.find((c) => c._id === data._id)) {
         setChats([data, ...chats]);
