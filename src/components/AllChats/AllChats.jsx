@@ -33,7 +33,7 @@ const AllChats = () => {
   useEffect(() => {
     fetchChats();
   }, [fetchChatsAgain]);
-  console.log(chats);
+
   return (
     <div className="h-full md:p-1 p-1 flex flex-col custom_scroll_bar w-full relative">
       <div className="font-semibold text-slate-600 dark:text-slate-100 mb-3 pl-1">

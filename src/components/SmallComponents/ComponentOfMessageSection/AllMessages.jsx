@@ -54,22 +54,13 @@ const AllMessages = ({ GroupModal, setGroupModal }) => {
       if (newMessageReceived) {
         FetchChatsAgain();
       }
-
+console.log(newMessageReceived);
       if (selectedChat._id === newMessageReceived.chat) {
         if (newMessageReceived.sender._id !== user._id) {
           setMessages((prevMessages) => [...prevMessages, newMessageReceived]);
         }
       } else {
       }
-      //  if (
-      //    !selectedChatCompare ||
-      //    selectedChatCompare._id !== newMessageReceived.chat._id
-      //  ) {
-      //    // Notification logic can go here
-      //  } else {
-      //    setMessages((prevMessages) => [...prevMessages, newMessageReceived]);
-      //  }
-
       FetchChatsAgain(); // Ensure this does not interfere with message updates
     });
 
