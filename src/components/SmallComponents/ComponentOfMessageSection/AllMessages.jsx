@@ -54,7 +54,7 @@ const AllMessages = ({ GroupModal, setGroupModal }) => {
       if (newMessageReceived) {
         FetchChatsAgain();
       }
-console.log(newMessageReceived);
+      // console.log(newMessageReceived);
       if (selectedChat._id === newMessageReceived.chat) {
         if (newMessageReceived.sender._id !== user._id) {
           setMessages((prevMessages) => [...prevMessages, newMessageReceived]);
