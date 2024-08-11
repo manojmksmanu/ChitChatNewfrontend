@@ -129,7 +129,7 @@ const AllChats = () => {
               </div>
 
               <span className="font-normal text-xs text-center text-blue-600 p-4">
-                No one to chat
+                No one to chat please add someone
                 <br />
                 Search and add users to chat
               </span>

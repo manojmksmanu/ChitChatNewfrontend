@@ -10,7 +10,6 @@ const Login = () => {
   const [SignInloading, setSignInLoading] = useState("false");
   const navigate = useNavigate();
   const submitHandlerlogin = async () => {
-  
     setSignInLoading(true);
     if (!email || !password) {
       toast.warn("Please fill all the fields", {
@@ -70,10 +69,10 @@ const Login = () => {
       setSignInLoading(false);
     }
   };
-const handleUserCredential =()=>{
-  setEmail("testuser@gmail.com");
-  setPassword("12345");
-}
+  const handleUserCredential = () => {
+    setEmail("testuser@gmail.com");
+    setPassword("12345");
+  }
 
   return (
     <div>
@@ -133,7 +132,7 @@ const handleUserCredential =()=>{
         <button
           className={`w-full relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-cyan-500 to-blue-500 group-hover:from-cyan-500 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-cyan-200 dark:focus:ring-cyan-800`
           }
-          onClick={()=>handleUserCredential()}
+          onClick={() => handleUserCredential()}
         >
           <span className="w-full relative  px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
             User Credential (To test website)
@@ -143,9 +142,8 @@ const handleUserCredential =()=>{
       <div className="mt-">
         <button
           onClick={submitHandlerlogin}
-          className={`w-full relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-cyan-500 to-blue-500 group-hover:from-cyan-500 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-cyan-200 dark:focus:ring-cyan-800 ${
-            SignInloading ? "cursor-not-allowed" : ""
-          }`}
+          className={`w-full relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-cyan-500 to-blue-500 group-hover:from-cyan-500 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-cyan-200 dark:focus:ring-cyan-800 ${SignInloading ? "cursor-not-allowed" : ""
+            }`}
         >
           <span className="w-full relative  px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
             Sign In
