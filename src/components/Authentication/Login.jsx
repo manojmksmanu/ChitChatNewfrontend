@@ -1,20 +1,20 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { toast, Bounce } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { contextData } from "../../context/Context";
+import toast from "react-hot-toast";
 
 const Login = () => {
   const { baseurl } = contextData();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isLoading, setIsLoading] = useState(false); // Simplified loading state
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const submitHandler = async () => {
     setIsLoading(true);
     if (!email || !password) {
-      toast.warn("Please fill all fields", { transition: Bounce });
+      toast.error("Please fill all fields");
       setIsLoading(false);
       return;
     }
@@ -25,13 +25,11 @@ const Login = () => {
         { email, password },
         { headers: { "Content-type": "application/json" } }
       );
-      toast.success("Login Successful", { transition: Bounce });
+      toast.success("Login Successful");
       localStorage.setItem("userInfo", JSON.stringify(data));
       navigate("/home");
     } catch (error) {
-      toast.error(`Error: ${error.response?.data?.message || "Login failed"}`, {
-        transition: Bounce,
-      });
+      toast.error(`Error: ${error.response?.data?.message || "Login failed"}`);
     } finally {
       setIsLoading(false);
     }
@@ -43,11 +41,11 @@ const Login = () => {
   };
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-6">
       <div className="relative">
-        <span className="absolute inset-y-0 left-0 flex items-center pl-3">
+        <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500 dark:text-gray-400">
           <svg
-            className="w-5 h-5 text-gray-400"
+            className="w-5 h-5"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -62,7 +60,7 @@ const Login = () => {
         </span>
         <input
           type="email"
-          className="w-full py-2 pl-10 pr-4 border rounded-lg focus:ring-2 focus:ring-blue-300 focus:border-blue-400 dark:bg-gray-800 dark:text-gray-200 dark:border-gray-600"
+          className="w-full py-3 pl-10 pr-4 text-gray-900 placeholder-gray-400 transition-colors duration-200 bg-white border border-gray-300 rounded-lg dark:bg-gray-800 dark:border-gray-700 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 dark:text-gray-100 dark:placeholder-gray-500"
           placeholder="Email address"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
@@ -70,9 +68,9 @@ const Login = () => {
       </div>
 
       <div className="relative">
-        <span className="absolute inset-y-0 left-0 flex items-center pl-3">
+        <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500 dark:text-gray-400">
           <svg
-            className="w-5 h-5 text-gray-400"
+            className="w-5 h-5"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -87,7 +85,7 @@ const Login = () => {
         </span>
         <input
           type="password"
-          className="w-full py-2 pl-10 pr-4 border rounded-lg focus:ring-2 focus:ring-blue-300 focus:border-blue-400 dark:bg-gray-800 dark:text-gray-200 dark:border-gray-600"
+          className="w-full py-3 pl-10 pr-4 text-gray-900 placeholder-gray-400 transition-colors duration-200 bg-white border border-gray-300 rounded-lg dark:bg-gray-800 dark:border-gray-700 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 dark:text-gray-100 dark:placeholder-gray-500"
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
@@ -96,7 +94,7 @@ const Login = () => {
 
       <button
         onClick={handleTestCredentials}
-        className="w-full py-2 text-white transition-colors rounded-lg bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600"
+        className="w-full py-3 text-white transition-all duration-200 rounded-lg shadow-md bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700"
       >
         Use Test Credentials
       </button>
@@ -104,10 +102,10 @@ const Login = () => {
       <button
         onClick={submitHandler}
         disabled={isLoading}
-        className={`w-full py-2 bg-gradient-to-r from-cyan-500 to-blue-500 text-white rounded-lg flex items-center justify-center ${
+        className={`w-full py-3 bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-lg flex items-center justify-center transition-all duration-200 shadow-md ${
           isLoading
-            ? "opacity-75 cursor-not-allowed"
-            : "hover:from-cyan-600 hover:to-blue-600"
+            ? "opacity-70 cursor-not-allowed"
+            : "hover:from-indigo-600 hover:to-purple-700"
         }`}
       >
         {isLoading ? (

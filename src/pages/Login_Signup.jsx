@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { ToastContainer } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import Login from "../components/Authentication/Login";
 import Signup from "../components/Authentication/Signup";
@@ -9,7 +8,6 @@ const LoginSignup = () => {
   const [isSignUp, setIsSignUp] = useState(true);
   const navigate = useNavigate();
 
-  // Redirect if already logged in
   useEffect(() => {
     if (localStorage.getItem("userInfo")) {
       navigate("/home", { replace: true });
@@ -17,39 +15,38 @@ const LoginSignup = () => {
   }, [navigate]);
 
   return (
-    <section className="flex items-center justify-center min-h-screen p-4 bg-white dark:bg-gray-900">
-      <div className="w-full max-w-md space-y-6">
+    <section className="flex items-center justify-center min-h-screen p-4 bg-gray-100 dark:bg-gray-900">
+      <div className="w-full max-w-md p-6 space-y-8 bg-white shadow-lg dark:bg-gray-800 rounded-xl">
         {/* Logo */}
         <div className="flex justify-center">
-          <div className="flex text-4xl font-bold text-blue-600 dark:text-white">
-            <motion.span>C</motion.span>
-            <motion.span
-              animate={{ rotate: [-20, 10, -20] }}
-              transition={{ repeat: Infinity, duration: 2 }}
-            >
-              C
-            </motion.span>
-          </div>
+          <motion.div
+            className="text-5xl font-extrabold text-indigo-600 dark:text-indigo-400"
+            initial={{ scale: 0.8 }}
+            animate={{ scale: 1 }}
+            transition={{ duration: 0.5 }}
+          >
+            Chatify
+          </motion.div>
         </div>
 
         {/* Tabs */}
-        <div className="flex justify-center space-x-4 border-b dark:border-gray-600">
+        <div className="flex justify-center space-x-6 border-b border-gray-300 dark:border-gray-700">
           <button
             onClick={() => setIsSignUp(false)}
-            className={`pb-2 w-1/2 text-center ${
+            className={`pb-3 w-1/2 text-center text-lg font-medium transition-colors duration-200 ${
               !isSignUp
-                ? "border-b-2 border-blue-500 text-blue-600 dark:text-white"
-                : "text-gray-500 dark:text-gray-300"
+                ? "border-b-2 border-indigo-500 text-indigo-600 dark:text-indigo-400"
+                : "text-gray-500 dark:text-gray-400"
             }`}
           >
             Sign In
           </button>
           <button
             onClick={() => setIsSignUp(true)}
-            className={`pb-2 w-1/2 text-center ${
+            className={`pb-3 w-1/2 text-center text-lg font-medium transition-colors duration-200 ${
               isSignUp
-                ? "border-b-2 border-blue-500 text-blue-600 dark:text-white"
-                : "text-gray-500 dark:text-gray-300"
+                ? "border-b-2 border-indigo-500 text-indigo-600 dark:text-indigo-400"
+                : "text-gray-500 dark:text-gray-400"
             }`}
           >
             Sign Up
@@ -61,9 +58,9 @@ const LoginSignup = () => {
           {isSignUp ? (
             <motion.div
               key="signup"
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -50 }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.3 }}
             >
               <Signup setIsSignUp={setIsSignUp} />
@@ -71,9 +68,9 @@ const LoginSignup = () => {
           ) : (
             <motion.div
               key="login"
-              initial={{ opacity: 0, x: -50 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: 50 }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.3 }}
             >
               <Login />
@@ -85,13 +82,15 @@ const LoginSignup = () => {
         <div className="text-center">
           <button
             onClick={() => setIsSignUp(!isSignUp)}
-            className="text-sm text-blue-500 hover:underline dark:text-blue-400"
+            className="text-sm font-medium text-indigo-600 transition-colors duration-200 dark:text-indigo-400 hover:underline"
           >
-            {isSignUp ? "Already have an account?" : "Don't have an account?"}
+            {isSignUp
+              ? "Already have an account? Sign In"
+              : "Don't have an account? Sign Up"}
           </button>
         </div>
       </div>
-      <ToastContainer position="top-right" autoClose={3000} hideProgressBar />
+
     </section>
   );
 };

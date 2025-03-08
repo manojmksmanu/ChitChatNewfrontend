@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import axios from "axios";
-import { toast, Bounce } from "react-toastify";
 import { contextData } from "../../context/Context";
+import toast from "react-hot-toast";
 
 const Signup = ({ setIsSignUp }) => {
   const { baseurl } = contextData();
@@ -10,17 +10,20 @@ const Signup = ({ setIsSignUp }) => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [pic, setPic] = useState(null);
+  const [previewUrl, setPreviewUrl] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [isImageUploading, setIsImageUploading] = useState(false);
+  const fileInputRef = useRef(null);
 
   const submitHandler = async () => {
     setIsLoading(true);
     if (!name || !email || !password || !confirmPassword) {
-      toast.warn("Please fill all fields", { transition: Bounce });
+      toast.error("Please fill all fields");
       setIsLoading(false);
       return;
     }
     if (password !== confirmPassword) {
-      toast.warn("Passwords do not match", { transition: Bounce });
+      toast.error("Passwords do not match");
       setIsLoading(false);
       return;
     }
@@ -31,30 +34,49 @@ const Signup = ({ setIsSignUp }) => {
         { name, email, password, pic },
         { headers: { "Content-type": "application/json" } }
       );
-      toast.success("Signup Successful! Please login.", { transition: Bounce });
+      toast.success("Signup Successful! Please login.");
       localStorage.setItem("userInfo", JSON.stringify(data));
       setIsSignUp(false);
     } catch (error) {
       toast.error(
-        `Error: ${error.response?.data?.message || "Signup failed"}`,
-        { transition: Bounce }
+        `Error: ${error.response?.data?.message || "Signup failed"}`
       );
     } finally {
       setIsLoading(false);
     }
   };
 
+  const handleFileSelect = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      // Create preview URL
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPreviewUrl(reader.result);
+      };
+      reader.readAsDataURL(file);
+
+      // Upload image to Cloudinary
+      postPicToCloudinary(file);
+    }
+  };
+
+  const triggerFileInput = () => {
+    fileInputRef.current.click();
+  };
+
   const postPicToCloudinary = async (file) => {
     if (!file) {
-      toast.error("Please select an image", { transition: Bounce });
+      toast.error("Please select an image");
       return;
     }
     if (file.type !== "image/jpeg" && file.type !== "image/png") {
-      toast.warn("Only JPEG/PNG images allowed", { transition: Bounce });
+      toast.warn("Only JPEG/PNG images allowed");
+      setPreviewUrl(null);
       return;
     }
 
-    setIsLoading(true);
+    setIsImageUploading(true);
     const data = new FormData();
     data.append("file", file);
     data.append("upload_preset", "mernchatapp");
@@ -70,22 +92,89 @@ const Signup = ({ setIsSignUp }) => {
       );
       const result = await res.json();
       setPic(result.secure_url);
-      toast.success("Image uploaded successfully", { transition: Bounce });
     } catch (error) {
-      toast.error(`Image upload failed: ${error.message}`, {
-        transition: Bounce,
-      });
+      toast.error(`Image upload failed: ${error.message}`);
+      setPreviewUrl(null);
     } finally {
-      setIsLoading(false);
+      setIsImageUploading(false);
     }
   };
 
   return (
-    <div className="space-y-4">
-      <div className="relative">
-        <span className="absolute inset-y-0 left-0 flex items-center pl-3">
+    <div className="space-y-6">
+      {/* Profile Image Upload Section */}
+      <div className="flex flex-col items-center justify-center mb-6">
+        <div
+          className="relative w-32 h-32 mb-4 overflow-hidden bg-gray-200 border-4 border-indigo-500 rounded-full cursor-pointer dark:bg-gray-700"
+          onClick={triggerFileInput}
+        >
+          {previewUrl ? (
+            <img
+              src={previewUrl}
+              alt="Profile preview"
+              className="object-cover w-full h-full"
+            />
+          ) : (
+            <div className="flex items-center justify-center w-full h-full text-gray-500 dark:text-gray-400">
+              <svg
+                className="w-12 h-12"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                />
+              </svg>
+            </div>
+          )}
+
+          {/* Image Upload Loader */}
+          {isImageUploading && (
+            <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50">
+              <div className="w-12 h-12 border-4 border-white rounded-full border-t-transparent animate-spin"></div>
+            </div>
+          )}
+        </div>
+
+        <input
+          ref={fileInputRef}
+          type="file"
+          accept="image/jpeg,image/png"
+          onChange={handleFileSelect}
+          className="hidden"
+        />
+
+        <button
+          type="button"
+          onClick={triggerFileInput}
+          className="flex items-center px-4 py-2 text-white transition-colors duration-200 bg-indigo-500 rounded-lg hover:bg-indigo-600"
+        >
           <svg
-            className="w-5 h-5 text-gray-400"
+            className="w-5 h-5 mr-2"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+            />
+          </svg>
+          Upload Profile Photo
+        </button>
+      </div>
+
+      {/* Username Input */}
+      <div className="relative">
+        <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500 dark:text-gray-400">
+          <svg
+            className="w-5 h-5"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -100,24 +189,18 @@ const Signup = ({ setIsSignUp }) => {
         </span>
         <input
           type="text"
-          className="w-full py-2 pl-10 pr-4 border rounded-lg focus:ring-2 focus:ring-blue-300 focus:border-blue-400 dark:bg-gray-800 dark:text-gray-200 dark:border-gray-600"
+          className="w-full py-3 pl-10 pr-4 text-gray-900 placeholder-gray-400 transition-colors duration-200 bg-white border border-gray-300 rounded-lg dark:bg-gray-800 dark:border-gray-700 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 dark:text-gray-100 dark:placeholder-gray-500"
           placeholder="Username"
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
       </div>
 
-      <input
-        type="file"
-        accept="image/jpeg,image/png"
-        onChange={(e) => postPicToCloudinary(e.target.files[0])}
-        className="w-full py-2 border rounded-lg dark:bg-gray-800 dark:text-gray-200 dark:border-gray-600"
-      />
-
+      {/* Email Input */}
       <div className="relative">
-        <span className="absolute inset-y-0 left-0 flex items-center pl-3">
+        <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500 dark:text-gray-400">
           <svg
-            className="w-5 h-5 text-gray-400"
+            className="w-5 h-5"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -132,17 +215,18 @@ const Signup = ({ setIsSignUp }) => {
         </span>
         <input
           type="email"
-          className="w-full py-2 pl-10 pr-4 border rounded-lg focus:ring-2 focus:ring-blue-300 focus:border-blue-400 dark:bg-gray-800 dark:text-gray-200 dark:border-gray-600"
+          className="w-full py-3 pl-10 pr-4 text-gray-900 placeholder-gray-400 transition-colors duration-200 bg-white border border-gray-300 rounded-lg dark:bg-gray-800 dark:border-gray-700 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 dark:text-gray-100 dark:placeholder-gray-500"
           placeholder="Email address"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
       </div>
 
+      {/* Password Input */}
       <div className="relative">
-        <span className="absolute inset-y-0 left-0 flex items-center pl-3">
+        <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500 dark:text-gray-400">
           <svg
-            className="w-5 h-5 text-gray-400"
+            className="w-5 h-5"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -157,17 +241,18 @@ const Signup = ({ setIsSignUp }) => {
         </span>
         <input
           type="password"
-          className="w-full py-2 pl-10 pr-4 border rounded-lg focus:ring-2 focus:ring-blue-300 focus:border-blue-400 dark:bg-gray-800 dark:text-gray-200 dark:border-gray-600"
+          className="w-full py-3 pl-10 pr-4 text-gray-900 placeholder-gray-400 transition-colors duration-200 bg-white border border-gray-300 rounded-lg dark:bg-gray-800 dark:border-gray-700 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 dark:text-gray-100 dark:placeholder-gray-500"
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
       </div>
 
+      {/* Confirm Password Input */}
       <div className="relative">
-        <span className="absolute inset-y-0 left-0 flex items-center pl-3">
+        <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500 dark:text-gray-400">
           <svg
-            className="w-5 h-5 text-gray-400"
+            className="w-5 h-5"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -182,20 +267,21 @@ const Signup = ({ setIsSignUp }) => {
         </span>
         <input
           type="password"
-          className="w-full py-2 pl-10 pr-4 border rounded-lg focus:ring-2 focus:ring-blue-300 focus:border-blue-400 dark:bg-gray-800 dark:text-gray-200 dark:border-gray-600"
+          className="w-full py-3 pl-10 pr-4 text-gray-900 placeholder-gray-400 transition-colors duration-200 bg-white border border-gray-300 rounded-lg dark:bg-gray-800 dark:border-gray-700 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 dark:text-gray-100 dark:placeholder-gray-500"
           placeholder="Confirm Password"
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
         />
       </div>
 
+      {/* Submit Button */}
       <button
         onClick={submitHandler}
         disabled={isLoading}
-        className={`w-full py-2 bg-gradient-to-r from-cyan-500 to-blue-500 text-white rounded-lg flex items-center justify-center ${
+        className={`w-full py-3 bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-lg flex items-center justify-center transition-all duration-200 shadow-md ${
           isLoading
-            ? "opacity-75 cursor-not-allowed"
-            : "hover:from-cyan-600 hover:to-blue-600"
+            ? "opacity-70 cursor-not-allowed"
+            : "hover:from-indigo-600 hover:to-purple-700"
         }`}
       >
         {isLoading ? (

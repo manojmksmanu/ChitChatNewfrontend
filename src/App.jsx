@@ -6,6 +6,8 @@ import Login_SignUp from "./pages/Login_Signup";
 import { Route, Routes } from "react-router-dom";
 import axios from "axios";
 import { contextData } from "./context/Context";
+import { Toaster } from "react-hot-toast";
+
 function App() {
   const [apiRunning, setApiRunning] = useState(false);
   const { baseurl } = contextData();
@@ -33,6 +35,8 @@ function App() {
 
   http: return (
     <div className="">
+      <Toaster />
+
       <Routes>
         <Route path="/" element={<Login_SignUp />} />
         <Route path="/home" element={apiRunning ? <Home /> : <FrontPage />} />

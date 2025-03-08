@@ -1,14 +1,12 @@
-import React from "react";
-import { RxCross1 } from "react-icons/rx";
-const Badge = ({ data, notshowcross }) => {
-
-  return (
-    <div className="dark:bg-slate-900  bg-slate-50 shadow-lg text-slate-800  dark:text-white p-1.5 rounded-lg flex items-center gap-2 cursor-pointer  hover:bg-slate-700 text-xs">
-      <img className="w-8 h-8 rounded-full" src={data.pic} />
-      {data && data.name}
-      <span>{notshowcross ? "" : <RxCross1 />}</span>{" "}
-    </div>
-  );
-};
-
+const Badge = ({ data, handleFunction }) => (
+  <div className="flex items-center px-2 py-1 text-indigo-800 bg-indigo-100 rounded-full dark:bg-indigo-700 dark:text-indigo-200">
+    <span>{data.name}</span>
+    <button
+      onClick={handleFunction}
+      className="ml-2 text-red-500 hover:text-red-700"
+    >
+      ✕
+    </button>
+  </div>
+);
 export default Badge;

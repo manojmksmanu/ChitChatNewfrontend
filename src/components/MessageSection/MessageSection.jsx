@@ -22,11 +22,11 @@ const MessageSection = () => {
   }, []);
 
   return (
-    <div className="w-full h-full flex flex-col">
+    <div className="flex flex-col w-full h-full">
       {/* <div className="h-[57px]">Hello</div> */}
       {selectedChat ? (
         <>
-          <div className="flex-grow mt-2 relative">
+          <div className="relative flex-grow mt-2">
             <AllMessages
               GroupModal={GroupModal}
               setGroupModal={setGroupModal}
@@ -46,7 +46,7 @@ const MessageSection = () => {
         >
           <SelectChatAnimation />
           {/* <selectChatAnimation/> */}
-          <span className="text-blue-700 dark:text-slate-100 text-xs">
+          <span className="text-xs text-blue-700 dark:text-slate-100">
             Select with Whom you want to chat{" "}
           </span>
           {/* <Vantra/> */}

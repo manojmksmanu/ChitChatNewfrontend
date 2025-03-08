@@ -5,7 +5,6 @@ import { motion } from "framer-motion";
 import Modal from "../components/ConfirmationModalLogout/Modal";
 import { contextData } from "../context/Context";
 import Chats from "../components/Chats/Chats";
-import { ToastContainer } from "react-toastify";
 const Home = () => {
   const { selectedChat } = contextData();
 
@@ -25,7 +24,6 @@ const Home = () => {
         {/* <UserProfileSection/> */}
         <MessageSection />
       </div>
-      <ToastContainer />
       <Modal />
     </div>
   );

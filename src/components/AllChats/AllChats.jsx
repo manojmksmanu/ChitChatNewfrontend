@@ -1,9 +1,11 @@
 import React, { useEffect } from "react";
 import ChatsAvtar from "../SmallComponents/ChatsAvtar";
 import { contextData } from "../../context/Context";
-import axios from "axios";
-import { toast } from "react-toastify";
+import axios from "axios"
 import { motion, AnimatePresence } from "framer-motion";
+import FrontPage from "../PageLoading/FrontPage";
+import Chats from "../Chats/Chats";
+import { BeatLoader } from "react-spinners";
 
 const AllChats = () => {
   const { baseurl } = contextData();
@@ -31,16 +33,19 @@ const AllChats = () => {
     }
   };
   useEffect(() => {
+    console.log('fetching')
     fetchChats();
   }, [fetchChatsAgain]);
-
   return (
-    <div className="h-full md:p-1 p-1 flex flex-col custom_scroll_bar w-full relative">
-      <div className="font-semibold text-slate-600 dark:text-slate-100 mb-3 pl-1">
-        {switchTab === "allchats" && <span>All Chats</span>}
-        {switchTab === "people" && <span>All Peoples</span>}
-        {switchTab === "groups" && <span>All Groups</span>}
+    <div className="relative flex flex-col w-full h-full p-1 md:p-1 custom_scroll_bar">
+      <div className="flex flex-col px-4 py-3 shadow-sm bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-gray-800 dark:to-gray-900 rounded-xl">
+        <h2 className="text-lg font-semibold text-gray-800 dark:text-white">
+          {switchTab === "allchats" && "All Conversations"}
+          {switchTab === "people" && "Direct Messages"}
+          {switchTab === "groups" && "Group Chats"}
+        </h2>
       </div>
+
       {/* Chats */}
       <div className="flex-grow bg-white dark:bg-[#001329] overflow-x-hidden overflow-auto rounded-md">
         <div className="flex flex-col ">
@@ -115,31 +120,10 @@ const AllChats = () => {
                   ))}
             </AnimatePresence>
           )}
-          {chats && chats.length === 0 ? (
-            <div className="w-full h-[calc(100vh-200px)] flex-col flex items-center justify-center">
-              <div className=" flex justify-center text-blue-600 dark:text-white font-black text-4xl">
-                <motion.div className="c c1">C</motion.div>
-                <motion.div
-                  className="c c2"
-                  animate={{ rotate: [-20, 10, -20] }}
-                  transition={{ repeat: Infinity, duration: 2 }}
-                >
-                  C
-                </motion.div>
-              </div>
-
-              <span className="font-normal text-xs text-center text-blue-600 p-4">
-                No one to chat please add someone
-                <br />
-                Search and add users to chat
-              </span>
-            </div>
-          ) : (
-            ""
-          )}
           {!chats && (
             <div>
               <div className="logo h-[calc(100vh-200px)] flex items-center justify-center text-blue-600 dark:text-white font-black text-4xl">
+                <BeatLoader color="#4f46e5" size={12} />
                 <motion.div className="c c1">C</motion.div>
                 <motion.div
                   className="c c2"
@@ -148,6 +132,7 @@ const AllChats = () => {
                 >
                   C
                 </motion.div>
+                <BeatLoader color="#4f46e5" size={12} />
               </div>
             </div>
           )}

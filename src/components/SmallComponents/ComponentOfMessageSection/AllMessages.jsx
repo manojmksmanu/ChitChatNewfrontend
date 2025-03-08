@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import EmojiPicker from "emoji-picker-react";
 import axios from "axios";
-import { toast } from "react-toastify";
 import ScrollableChat from "./ScrollableChat";
 import io from "socket.io-client";
 import { contextData } from "../../../context/Context";
@@ -143,15 +142,15 @@ const AllMessages = ({ GroupModal, setGroupModal }) => {
 
   return (
     <div>
-      <div className=" mb-3">
+      <div className="mb-3 ">
         <Top isTyping={isTyping} handleGroupModal={handleGroupModal} />
       </div>
       <div className="bg-white dark:bg-[#001329] w-full h-full flex flex-col flex-grow rounded">
-        <div className="flex-grow flex flex-col">
+        <div className="flex flex-col flex-grow">
           {loading ? (
             <div className="flex-grow flex items-center justify-center h-[calc(100vh-200px)] ">
               <motion.div
-                className="flex items-center justify-center z-10 "
+                className="z-10 flex items-center justify-center "
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, y: 20 }}
@@ -187,7 +186,7 @@ const AllMessages = ({ GroupModal, setGroupModal }) => {
         </div>
         <form
           onSubmit={sendMessage}
-          className="flex items-center justify-center md:p-2 py-2 bg-gray-50 dark:bg-gray-700"
+          className="flex items-center justify-center py-2 md:p-2 bg-gray-50 dark:bg-gray-700"
         >
           <button
             onClick={() => setShowPicker(!showPicker)}
@@ -211,7 +210,7 @@ const AllMessages = ({ GroupModal, setGroupModal }) => {
             </svg>
           </button>
           {showPicker && (
-            <div className="absolute bottom-16 right-2 z-10">
+            <div className="absolute z-10 bottom-16 right-2">
               <EmojiPicker
                 onEmojiClick={handleEmoji}
                 className="max-w-[250px] xs:max-w-[300px] sm:max-w-full max-h-[400px] xs:max-h-full"
