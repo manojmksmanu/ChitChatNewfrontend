@@ -11,10 +11,11 @@ export const Provider = ({ children }) => {
   const FetchChatsAgain =()=>{
     setFetchChatsAgain(!fetchChatsAgain);
   }
-// const baseurl = "http://localhost:5000/";
-const baseurl = "https://chitchatbackend-r5s6.onrender.com/";
+const baseurl = "http://localhost:5000/";
+// const baseurl = "https://chitchatbackend-r5s6.onrender.com/";
   useEffect(() => {
     const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+    console.log(userInfo, "userInfo");
     setUser(userInfo);
     if (!userInfo) {
       navigate("/");
