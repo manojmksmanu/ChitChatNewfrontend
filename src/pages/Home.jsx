@@ -12,8 +12,9 @@ const Home = () => {
     <div className="flex h-screen overflow-hidden bg-[#D1E6FF]  dark:bg-[#002047]">
       <Sidebar />
       {/* ---All chats --  */}
-
-      <Chats />
+      <div style={{ margin: 6 }}>
+        <Chats />
+      </div>
 
       {/* ---All chats Ends --  */}
       <div

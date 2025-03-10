@@ -8,15 +8,8 @@ import Top from "./Top";
 import { useSocket } from "../../../context/SocketContext";
 
 const AllMessages = ({ GroupModal, setGroupModal }) => {
-  const {
-    user,
-    selectedChat,
-    FetchChatsAgain,
-    baseurl,
-    fetchChatsAgain,
-    setFetchChatsAgain,
-  } = contextData();
-  const { socket, socketConnected } = useSocket();
+  const { user, selectedChat, FetchChatsAgain, baseurl } = contextData();
+  const { socket } = useSocket();
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
   const [newMessage, setNewMessage] = useState("");
@@ -63,7 +56,7 @@ const AllMessages = ({ GroupModal, setGroupModal }) => {
       if (newMessageReceived.chat._id === selectedChat._id) {
         setMessages((prev) => [...prev, newMessageReceived]);
       } else {
-        FetchChatsAgain(); // Update chat list if message is for another chat
+        FetchChatsAgain(); 
       }
     });
 
@@ -135,17 +128,14 @@ const AllMessages = ({ GroupModal, setGroupModal }) => {
   const typingHandler = (e) => {
     setNewMessage(e.target.value);
     if (!socket || !selectedChat) return;
-
     if (!typing) {
       setTyping(true);
       socket.emit("typing", selectedChat._id);
     }
-
     const typingTimeout = setTimeout(() => {
       setTyping(false);
       socket.emit("stop typing", selectedChat._id);
     }, 3000);
-
     return () => clearTimeout(typingTimeout);
   };
 

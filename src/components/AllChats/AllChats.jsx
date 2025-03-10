@@ -47,8 +47,8 @@ const AllChats = () => {
   }, [fetchChatsAgain, user]); // Added user as dependency
 
   return (
-    <div className="relative flex flex-col w-full h-full p-1 md:p-1 custom_scroll_bar">
-      <div className="flex flex-col px-4 py-3 shadow-sm bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-gray-800 dark:to-gray-900 rounded-xl">
+    <div className="relative flex flex-col w-full h-full p-1 md:p-1 custom_scroll_bar ">
+      <div className="flex flex-col px-4 py-3 m-2 shadow-sm bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-gray-800 dark:to-gray-900 rounded-xl">
         <h2 className="text-lg font-semibold text-gray-800 dark:text-white">
           {switchTab === "allchats" && "All Conversations"}
           {switchTab === "people" && "Direct Messages"}
@@ -57,7 +57,7 @@ const AllChats = () => {
       </div>
 
       <div className="flex-grow bg-white dark:bg-[#001329] overflow-x-hidden overflow-auto rounded-md">
-        {loading && chats.length === 0 ? (
+        {loading && chats?.length === 0 ? (
           <div className="flex items-center justify-center h-full">
             <BeatLoader color="#4f46e5" size={12} />
           </div>
@@ -70,7 +70,7 @@ const AllChats = () => {
                   onClick={() => setSelectedChat(chat)}
                   className={
                     selectedChat && selectedChat._id === chat._id
-                      ? "bg-blue-700  text-white cursor-pointer "
+                      ? "bg-gradient-to-r from-indigo-500 to-blue-600 text-white shadow-lg"
                       : "cursor-pointer  hover:bg-blue-500 hover:text-white"
                   }
                   initial={{ opacity: 0, y: -10 }}
@@ -78,7 +78,7 @@ const AllChats = () => {
                   exit={{ opacity: 0, y: 10 }}
                   layout
                   transition={{ duration: 0.2 }}
-                  whileHover={{ scale: 1.02 }}
+                  whileHover={{ scale: 1.01}}
                   whileTap={{ scale: 0.98 }}
                 >
                   <ChatsAvtar data={chat} />
@@ -101,7 +101,7 @@ const AllChats = () => {
                     exit={{ opacity: 0, y: 10 }}
                     layout
                     transition={{ duration: 0.2 }}
-                    whileHover={{ scale: 1.02 }}
+                    whileHover={{ scale: 1.01 }}
                     whileTap={{ scale: 0.98 }}
                   >
                     <ChatsAvtar data={chat} />
@@ -124,7 +124,7 @@ const AllChats = () => {
                     exit={{ opacity: 0, y: 10 }}
                     layout
                     transition={{ duration: 0.2 }}
-                    whileHover={{ scale: 1.02 }}
+                    whileHover={{ scale: 1.01}}
                     whileTap={{ scale: 0.98 }}
                   >
                     <ChatsAvtar data={chat} />
