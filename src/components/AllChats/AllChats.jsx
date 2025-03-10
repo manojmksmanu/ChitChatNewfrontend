@@ -56,7 +56,7 @@ const AllChats = () => {
         </h2>
       </div>
 
-      <div className="flex-grow bg-white dark:bg-[#001329] overflow-x-hidden overflow-auto rounded-md">
+      <div className="flex-grow bg-white dark:bg-[#001329] overflow-x-hidden overflow-auto rounded-md m-2">
         {loading && chats?.length === 0 ? (
           <div className="flex items-center justify-center h-full">
             <BeatLoader color="#4f46e5" size={12} />

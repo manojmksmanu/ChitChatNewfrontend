@@ -46,7 +46,7 @@ const MessageSection = () => {
         </div>
       ) : (
         <motion.div
-          className="flex flex-col items-center justify-center w-full h-full bg-gradient-to-br from-indigo-50 to-blue-100 dark:from-gray-800 dark:to-gray-700 rounded-xl"
+          className="relative flex flex-col items-center justify-center w-full h-full bg-gradient-to-br from-indigo-50 to-blue-100 dark:from-gray-800 dark:to-gray-700 rounded-xl"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5 }}

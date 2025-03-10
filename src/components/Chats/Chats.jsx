@@ -17,19 +17,37 @@ const Chats = () => {
 
   return (
     <motion.div
-      className={`md:w-80 w-full h-full bg-white dark:bg-gray-900 shadow-xl rounded-lg transition-all duration-300 ${
-        selectedChat ? "hidden md:block" : "block"
-      }`}
+      className={`md:w-80 relative   h-full bg-white dark:bg-gray-900 shadow-xl rounded-lg transition-all duration-300 
+        ${selectedChat ? "hidden md:block" : "block"}
+      `}
       initial={{ opacity: 0, x: -20 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.5 }}
     >
       {/* Action Buttons */}
-      <div className="absolute z-20 flex flex-col space-y-4 bottom-6 right-6">
+      <div className="absolute z-20 space-y-4 bottom-6 right-6">
         {switchTab === "allchats" && (
           <motion.button
             onClick={() => setIsFindChatsOpen(true)}
-            whileHover={{ scale: 1.2, rotate: 15 }}
+            // Animation settings
+            animate={{
+              scale: [0.9, 1.4, 0.9], // Pulsing effect
+              boxShadow: [
+                "0 0 0 0 rgba(99, 102, 241, 0)",
+                "0 0 20px 4px rgba(99, 102, 241, 0.4)",
+                "0 0 0 0 rgba(99, 102, 241, 0)",
+              ],
+            }}
+            transition={{
+              duration: 1,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+            whileHover={{
+              scale: 1.2,
+              rotate: 15,
+              boxShadow: "0 0 25px 6px rgba(147, 51, 234, 0.8)",
+            }}
             whileTap={{ scale: 0.9 }}
             className="p-3 text-white transition-all duration-300 rounded-full shadow-lg bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700"
           >
@@ -39,7 +57,25 @@ const Chats = () => {
         {switchTab === "groups" && (
           <motion.button
             onClick={() => setIsCreateGroupOpen(true)}
-            whileHover={{ scale: 1.2, rotate: 15 }}
+            // Animation settings
+            animate={{
+              scale: [1, 1.1, 1],
+              boxShadow: [
+                "0 0 0 0 rgba(99, 102, 241, 0)",
+                "0 0 20px 4px rgba(99, 102, 241, 0.7)",
+                "0 0 0 0 rgba(99, 102, 241, 0)",
+              ],
+            }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+            whileHover={{
+              scale: 1.2,
+              rotate: 15,
+              boxShadow: "0 0 25px 6px rgba(147, 51, 234, 0.8)",
+            }}
             whileTap={{ scale: 0.9 }}
             className="p-3 text-white transition-all duration-300 rounded-full shadow-lg bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700"
           >

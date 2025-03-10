@@ -91,7 +91,7 @@ const ChatsAvtar = ({ data }) => {
                   ? data.latestMessage.content.substring(0, 20) + "..."
                   : data.latestMessage.content}
               </p>
-              <span className="text-xs text-gray-400 dark:text-gray-500 mt-0.5">
+              <span className="text-xs text-gray-400 dark:text-gray-400 mt-0.5">
                 {messageDate}
               </span>
             </div>

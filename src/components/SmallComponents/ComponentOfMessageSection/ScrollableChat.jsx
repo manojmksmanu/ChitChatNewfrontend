@@ -8,9 +8,9 @@ const ScrollableChat = ({ messages }) => {
   const { user, selectedChat } = contextData();
 
   return (
-    <div className="flex flex-col h-full overflow-y-auto ">
+    <div className="flex flex-col h-full overflow-y-auto">
       <ScrollableFeed
-        className="flex flex-col p-1 custom-scrollbar"
+        className="flex flex-col p-1 px-4 custom-scrollbar"
         forceScroll={true} // Ensures scrolling to the latest message
       >
         {messages &&
@@ -73,30 +73,3 @@ const ScrollableChat = ({ messages }) => {
 };
 
 export default ScrollableChat;
-
-// Custom Scrollbar CSS (Add to your global CSS file, e.g., index.css)
-const customScrollbarCSS = `
-  .custom-scrollbar::-webkit-scrollbar {
-    width: 6px;
-  }
-  .custom-scrollbar::-webkit-scrollbar-track {
-    background: #f1f1f1;
-    border-radius: 3px;
-  }
-  .custom-scrollbar::-webkit-scrollbar-thumb {
-    background: #888;
-    border-radius: 3px;
-  }
-  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    background: #555;
-  }
-  .dark .custom-scrollbar::-webkit-scrollbar-track {
-    background: #2d3748;
-  }
-  .dark .custom-scrollbar::-webkit-scrollbar-thumb {
-    background: #4f46e5;
-  }
-  .dark .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    background: #7c3aed;
-  }
-`;

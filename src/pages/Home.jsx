@@ -11,18 +11,21 @@ const Home = () => {
   return (
     <div className="flex h-screen overflow-hidden bg-[#D1E6FF]  dark:bg-[#002047]">
       <Sidebar />
-      {/* ---All chats --  */}
-      <div style={{ margin: 6 }}>
+      <div
+        className={` p-1   md:flex-grow-0
+          ${
+          !selectedChat &&  "block flex-grow" 
+        }
+        `}
+      >
         <Chats />
       </div>
 
-      {/* ---All chats Ends --  */}
       <div
         className={`flex-grow p-1  md:block  ${
           selectedChat ? "block" : "hidden"
         }`}
       >
-        {/* <UserProfileSection/> */}
         <MessageSection />
       </div>
       <Modal />

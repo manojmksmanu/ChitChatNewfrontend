@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import EmojiPicker from "emoji-picker-react";
 import axios from "axios";
 import ScrollableChat from "./ScrollableChat";
@@ -16,7 +16,8 @@ const AllMessages = ({ GroupModal, setGroupModal }) => {
   const [typing, setTyping] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
   const [isSending, setIsSending] = useState(false);
-  const [showPicker, setShowPicker] = useState(false); // Added missing state for EmojiPicker
+  const [showPicker, setShowPicker] = useState(false);
+  const pickerRef = useRef(null); // Ref for EmojiPicker
 
   // Handle emoji selection
   const handleEmoji = (e) => {
@@ -27,6 +28,17 @@ const AllMessages = ({ GroupModal, setGroupModal }) => {
   const handleGroupModal = () => {
     setGroupModal(!GroupModal);
   };
+
+  // Close picker on outside click
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (pickerRef.current && !pickerRef.current.contains(event.target)) {
+        setShowPicker(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   // Fetch messages when selectedChat or socket changes
   useEffect(() => {
@@ -56,7 +68,7 @@ const AllMessages = ({ GroupModal, setGroupModal }) => {
       if (newMessageReceived.chat._id === selectedChat._id) {
         setMessages((prev) => [...prev, newMessageReceived]);
       } else {
-        FetchChatsAgain(); 
+        FetchChatsAgain();
       }
     });
 
@@ -113,6 +125,7 @@ const AllMessages = ({ GroupModal, setGroupModal }) => {
         setMessages((prev) => [...prev, data]);
         socket.emit("new message", data);
         FetchChatsAgain();
+        setShowPicker(false); // Close emoji picker on send
       } catch (error) {
         toast.error("Error sending message");
         console.error(error);
@@ -142,7 +155,7 @@ const AllMessages = ({ GroupModal, setGroupModal }) => {
   return (
     <div className="flex flex-col w-full h-full">
       {/* Top bar with chat info and group modal toggle */}
-      <div className="mb-3">
+      <div className="">
         <Top isTyping={isTyping} handleGroupModal={handleGroupModal} />
       </div>
 
@@ -186,7 +199,7 @@ const AllMessages = ({ GroupModal, setGroupModal }) => {
         {/* Message input form */}
         <form
           onSubmit={sendMessage}
-          className="flex items-center py-2 md:p-2 bg-gray-50 dark:bg-gray-700"
+          className="relative flex items-center gap-2 p-2 py-2 md:p-2 bg-gray-50 dark:bg-gray-700"
         >
           <button
             onClick={() => setShowPicker((prev) => !prev)}
@@ -211,7 +224,7 @@ const AllMessages = ({ GroupModal, setGroupModal }) => {
           </button>
 
           {showPicker && (
-            <div className="absolute z-10 bottom-16 right-2">
+            <div ref={pickerRef} className="absolute z-10 bottom-16 right-2">
               <EmojiPicker
                 onEmojiClick={handleEmoji}
                 className="max-w-[250px] xs:max-w-[300px] sm:max-w-full max-h-[400px] xs:max-h-full"
