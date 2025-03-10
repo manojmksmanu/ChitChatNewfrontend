@@ -12,15 +12,17 @@ const Home = () => {
     <div className="flex h-screen overflow-hidden bg-[#D1E6FF]  dark:bg-[#002047]">
       <Sidebar />
       <div
-        className={` p-1   md:flex-grow-0
+        className={` pl-2 py-2 md:flex-grow-0  md:block pr-3 md:pr-0
           ${!selectedChat && "block flex-grow"}
+          ${selectedChat && "hidden"}
+        
         `}
       >
         <Chats />
       </div>
 
       <div
-        className={`flex-grow p-1  md:block  ${
+        className={`flex-grow p-2 pr-2  md:block  ${
           selectedChat ? "block" : "hidden"
         }`}
       >

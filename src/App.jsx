@@ -36,7 +36,6 @@ function App() {
   http: return (
     <div className="">
       <Toaster />
-
       <Routes>
         <Route path="/" element={<Login_SignUp />} />
         <Route path="/home" element={apiRunning ? <Home /> : <FrontPage />} />

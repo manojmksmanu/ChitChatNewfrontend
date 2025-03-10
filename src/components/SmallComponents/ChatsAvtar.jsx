@@ -7,26 +7,28 @@ import NoImage from "../../assets/no-image.png";
 import { useSocket } from "../../context/SocketContext";
 
 const ChatsAvtar = ({ data }) => {
-  const { user } = contextData();
+  const { user, selectedChat } = contextData();
   const { onlineUsers } = useSocket();
-  const sender = getSender(user, data.users);
   const [isOnline, setIsOnline] = useState(false);
 
-  console.log(onlineUsers);
+  // Early return if data is not provided
+  if (!data) {
+    return null;
+  }
+
+  const sender = getSender(user, data.users);
 
   useEffect(() => {
-    if (!data.isGroupChat) {
-      const sender = data.users.filter((u) => u._id !== user._id);
-      setIsOnline(onlineUsers.has(sender[0]?._id));
+    if (!data.isGroupChat && sender) {
+      setIsOnline(onlineUsers.has(sender._id));
     }
-  }, [onlineUsers]);
+  }, [onlineUsers, sender]);
 
-  // Format the latest message time and date
+  // Format the latest message time and date with null checks
   const messageTime = data.latestMessage
     ? format(new Date(data.latestMessage.createdAt), "h:mm a")
     : "";
 
-  // Conditional date formatting
   const messageDate = data.latestMessage
     ? (() => {
         const date = new Date(data.latestMessage.createdAt);
@@ -36,10 +38,11 @@ const ChatsAvtar = ({ data }) => {
       })()
     : "";
 
+  const isSelected = selectedChat?._id === data._id;
+
   return (
     <motion.div
-      className="flex items-center gap-3 p-3 transition-all duration-300 rounded-lg shadow-md cursor-pointer md:p-4"
-      whileHover={{ scale: 1.02 }} // Only scales the card, not the ring
+      className={`flex items-center gap-3 p-3 transition-all duration-300 rounded-lg shadow-md cursor-pointer md:p-4 `}
       transition={{ duration: 0.2 }}
     >
       {/* Avatar with Online Status */}
@@ -57,11 +60,11 @@ const ChatsAvtar = ({ data }) => {
         {!data.isGroupChat && isOnline && (
           <motion.div
             className="absolute rounded-full w-14 h-14 md:w-16 md:h-16 bg-gradient-to-r from-green-400 via-teal-500 to-green-400 opacity-70"
-            initial={{ rotate: 0, scale: 1, opacity: 0.7 }} // Start immediately
+            initial={{ rotate: 0, scale: 1, opacity: 0.7 }}
             animate={{
               rotate: 360,
-              scale: [0.5, 1, 0.5], // Pulsing effect
-              opacity: [0.7, 0.9, 0.7], // Glow effect
+              scale: [0.5, 1, 0.5],
+              opacity: [0.7, 0.9, 0.7],
             }}
             transition={{
               rotate: { duration: 4, repeat: Infinity, ease: "linear" },
@@ -78,36 +81,64 @@ const ChatsAvtar = ({ data }) => {
       {/* Chat Info */}
       <div className="flex flex-col flex-grow overflow-hidden">
         <div className="flex items-center justify-between">
-          <h3 className="text-base font-semibold text-gray-800 truncate md:text-lg dark:text-gray-100">
-            {!data.isGroupChat ? sender?.name : data.chatName}
+          <h3
+            className={`text-base font-semibold truncate md:text-lg ${
+              isSelected ? "text-white" : "text-gray-800 dark:text-gray-100"
+            }`}
+          >
+            {!data.isGroupChat
+              ? sender?.name || "Unknown"
+              : data.chatName || "Unnamed Group"}
           </h3>
           {data.latestMessage && (
-            <span className="text-xs font-medium text-gray-500 md:text-sm dark:text-gray-400 whitespace-nowrap">
+            <span
+              className={`text-xs font-medium md:text-sm whitespace-nowrap ${
+                isSelected
+                  ? "text-gray-300"
+                  : "text-gray-500 dark:text-gray-400"
+              }`}
+            >
               {messageTime}
             </span>
           )}
         </div>
 
-        <div className="text-sm text-gray-600 dark:text-gray-300">
+        <div
+          className={`text-sm ${
+            isSelected ? "text-white" : "text-gray-600 dark:text-gray-300"
+          }`}
+        >
           {data.latestMessage ? (
             <div className="flex flex-col">
               <p className="text-[13px] md:text-sm font-light truncate">
                 <span className="font-medium">
-                  {data.latestMessage.sender.name === user.name
+                  {data.latestMessage.sender?.name === user?.name
                     ? "You"
-                    : data.latestMessage.sender.name}
+                    : data.latestMessage.sender?.name || "Unknown"}
                 </span>
                 :{" "}
-                {data.latestMessage.content.length > 25
+                {data.latestMessage.content?.length > 25
                   ? data.latestMessage.content.substring(0, 20) + "..."
-                  : data.latestMessage.content}
+                  : data.latestMessage.content || ""}
               </p>
-              <span className="text-xs text-gray-400 dark:text-gray-400 mt-0.5">
+              <span
+                className={`text-xs mt-0.5 ${
+                  isSelected
+                    ? "text-gray-300"
+                    : "text-gray-400 dark:text-gray-400"
+                }`}
+              >
                 {messageDate}
               </span>
             </div>
           ) : (
-            <span className="text-xs italic text-gray-400 dark:text-gray-500">
+            <span
+              className={`text-xs italic ${
+                isSelected
+                  ? "text-gray-300"
+                  : "text-gray-400 dark:text-gray-500"
+              }`}
+            >
               No messages yet
             </span>
           )}

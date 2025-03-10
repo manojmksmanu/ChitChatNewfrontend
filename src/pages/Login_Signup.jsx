@@ -5,7 +5,7 @@ import Login from "../components/Authentication/Login";
 import Signup from "../components/Authentication/Signup";
 
 const LoginSignup = () => {
-  const [isSignUp, setIsSignUp] = useState(true);
+  const [isSignUp, setIsSignUp] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -25,7 +25,7 @@ const LoginSignup = () => {
             animate={{ scale: 1 }}
             transition={{ duration: 0.5 }}
           >
-            Chatify
+            ChitChat
           </motion.div>
         </div>
 

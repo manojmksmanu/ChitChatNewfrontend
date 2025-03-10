@@ -73,7 +73,7 @@ const AllChats = () => {
       </div>
 
       <div className="flex-grow bg-white dark:bg-[#001329] overflow-x-hidden overflow-auto rounded-md m-2">
-        {loading ? (
+        {loading && chats?.length === 0 ? (
           <div className="flex items-center justify-center h-full">
             <BeatLoader color="#4f46e5" size={12} />
           </div>
@@ -102,15 +102,14 @@ const AllChats = () => {
                     onClick={() => setSelectedChat(chat)}
                     className={
                       selectedChat && selectedChat._id === chat._id
-                        ? "bg-gradient-to-r from-indigo-500 to-blue-600 text-white shadow-lg"
-                        : "cursor-pointer hover:bg-blue-500 hover:text-white"
+                        ? "bg-gradient-to-r from-indigo-500 to-blue-600 text-white overflow-hidden rounded-lg"
+                        : "cursor-pointer hover:bg-blue-500 hover:text-white overflow-hidden rounded-lg"
                     }
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 10 }}
                     layout
                     transition={{ duration: 0.2 }}
-                    whileHover={{ scale: 1.01 }}
                     whileTap={{ scale: 0.98 }}
                   >
                     <ChatsAvtar data={chat} />
@@ -123,15 +122,14 @@ const AllChats = () => {
                     onClick={() => setSelectedChat(chat)}
                     className={
                       selectedChat && selectedChat._id === chat._id
-                        ? "bg-blue-700  text-white cursor-pointer "
-                        : "cursor-pointer hover:bg-blue-500 hover:text-white"
+                        ? "bg-gradient-to-r from-indigo-500 to-blue-600 text-white  overflow-auto rounded-lg"
+                        : "cursor-pointer hover:bg-blue-500 hover:text-white overflow-hidden rounded-lg"
                     }
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 10 }}
                     layout
                     transition={{ duration: 0.2 }}
-                    whileHover={{ scale: 1.01 }}
                     whileTap={{ scale: 0.98 }}
                   >
                     <ChatsAvtar data={chat} />
@@ -144,15 +142,14 @@ const AllChats = () => {
                     onClick={() => setSelectedChat(chat)}
                     className={
                       selectedChat && selectedChat._id === chat._id
-                        ? "bg-blue-700  text-white cursor-pointer "
-                        : "cursor-pointer hover:bg-blue-500 hover:text-white"
+                        ? "bg-gradient-to-r from-indigo-500 to-blue-600 text-white  overflow-auto rounded-lg"
+                        : "cursor-pointer hover:bg-blue-500 hover:text-white overflow-hidden rounded-lg"
                     }
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 10 }}
                     layout
                     transition={{ duration: 0.2 }}
-                    whileHover={{ scale: 1.01 }}
                     whileTap={{ scale: 0.98 }}
                   >
                     <ChatsAvtar data={chat} />

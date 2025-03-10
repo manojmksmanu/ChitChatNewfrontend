@@ -7,12 +7,16 @@ import { motion, AnimatePresence } from "framer-motion";
 import Logo from "../SmallComponents/Logo";
 import { contextData } from "../../context/Context";
 import { FiSun, FiMoon } from "react-icons/fi";
+import { useNavigate } from "react-router-dom";
+import { Theme } from "emoji-picker-react";
+import ThemeToggle from "../ThemeToggle/ThemeToggle";
 
 const Sidebar = () => {
   const [navToggle, setNavToggle] = useState("allchats");
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
   const { user, setSwitchTab, setSelectedChat } = contextData();
+  const navigate = useNavigate();
 
   const navsItems = [
     { name: "allchats", icon: <LuMessageCircle />, label: "All Chats" },
@@ -38,7 +42,8 @@ const Sidebar = () => {
   const confirmLogout = () => {
     localStorage.clear();
     setIsLogoutModalOpen(false);
-    window.location.href = "/login"; // Replace with your routing logic
+    localStorage.removeItem("userInfo");
+    navigate("/", { replace: true });
   };
 
   const cancelLogout = () => {
@@ -49,10 +54,10 @@ const Sidebar = () => {
     <>
       {/* Sidebar */}
       <motion.div
-        className="flex flex-col justify-between w-16 h-screen py-4 transition-all duration-300 border-r shadow-xl bg-white/80 dark:bg-gray-900/80 backdrop-blur-lg sm:w-20 md:w-64 rounded-r-2xl border-gray-200/50 dark:border-gray-700/50"
+        className="flex flex-col justify-between w-12 py-4 transition-all duration-300 border-r shadow-xl h-sreen bg-white/80 dark:bg-gray-900/80 backdrop-blur-lg sm:w-20 lg:w-48 md:w-44 rounded-r-2xl border-gray-200/50 dark:border-gray-700/50"
         initial={{ x: -100, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
+        transition={{ duration: 0.2, ease: "easeOut" }}
       >
         {/* Top Section */}
         <div>
@@ -97,18 +102,7 @@ const Sidebar = () => {
         {/* Bottom Section */}
         <div className="flex flex-col items-center gap-3 px-1 sm:gap-4 sm:px-2">
           {/* Theme Toggle */}
-          <motion.div
-            whileHover={{ rotate: 360 }}
-            transition={{ duration: 0.8 }}
-            className="flex items-center justify-center w-10 h-10 rounded-full shadow-md cursor-pointer sm:w-12 sm:h-12 bg-white/50 dark:bg-gray-800/50"
-            onClick={toggleTheme}
-          >
-            {isDarkMode ? (
-              <FiMoon className="text-xl text-yellow-400 sm:text-2xl" />
-            ) : (
-              <FiSun className="text-xl text-orange-500 sm:text-2xl" />
-            )}
-          </motion.div>
+        <ThemeToggle/>
 
           {user && (
             <motion.div

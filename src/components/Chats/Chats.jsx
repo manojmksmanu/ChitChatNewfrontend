@@ -17,11 +17,11 @@ const Chats = () => {
 
   return (
     <motion.div
-      className={`md:w-80 relative h-full bg-white dark:bg-gray-900 shadow-xl rounded-lg transition-all duration-300 
+      className={`md:w-80  relative h-full bg-white dark:bg-gray-900 shadow-xl rounded-lg transition-all duration-300 
         ${selectedChat ? "hidden md:block" : "block"}`}
-      initial={{ opacity: 0, x: -20 }}
+      initial={{ opacity: 0 }}
       animate={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.5 }}
+      transition={{ duration: 1 }}
     >
       {/* Action Buttons */}
       <div className="absolute z-20 space-y-4 bottom-6 right-6">
@@ -29,7 +29,7 @@ const Chats = () => {
           <motion.button
             onClick={() => setIsFindChatsOpen(true)}
             animate={{
-              scale: [0.9, 1.4, 0.9],
+              scale: [1, 1.1, 1],
               boxShadow: [
                 "0 0 0 0 rgba(99, 102, 241, 0)",
                 "0 0 20px 4px rgba(99, 102, 241, 0.4)",
