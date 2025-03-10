@@ -3,10 +3,10 @@ import { motion } from "framer-motion";
 import { BiSolidMessageSquareAdd } from "react-icons/bi";
 import { MdGroupAdd } from "react-icons/md";
 import Modal from "react-modal";
-import AllChats from "../AllChats/AllChats";
-import FindChats from "../FindChats/FindChats";
+import AllChats from "../AllChats/AllChats";;
 import CreateGroup from "../CreateGroupModal/CreateGroup";
 import { contextData } from "../../context/Context";
+import FindUserForChat from "../FindChats/FindUserForChat";
 
 Modal.setAppElement("#root");
 
@@ -17,9 +17,8 @@ const Chats = () => {
 
   return (
     <motion.div
-      className={`md:w-80 relative   h-full bg-white dark:bg-gray-900 shadow-xl rounded-lg transition-all duration-300 
-        ${selectedChat ? "hidden md:block" : "block"}
-      `}
+      className={`md:w-80 relative h-full bg-white dark:bg-gray-900 shadow-xl rounded-lg transition-all duration-300 
+        ${selectedChat ? "hidden md:block" : "block"}`}
       initial={{ opacity: 0, x: -20 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.5 }}
@@ -29,9 +28,8 @@ const Chats = () => {
         {switchTab === "allchats" && (
           <motion.button
             onClick={() => setIsFindChatsOpen(true)}
-            // Animation settings
             animate={{
-              scale: [0.9, 1.4, 0.9], // Pulsing effect
+              scale: [0.9, 1.4, 0.9],
               boxShadow: [
                 "0 0 0 0 rgba(99, 102, 241, 0)",
                 "0 0 20px 4px rgba(99, 102, 241, 0.4)",
@@ -49,7 +47,7 @@ const Chats = () => {
               boxShadow: "0 0 25px 6px rgba(147, 51, 234, 0.8)",
             }}
             whileTap={{ scale: 0.9 }}
-            className="p-3 text-white transition-all duration-300 rounded-full shadow-lg bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700"
+            className="p-3 text-white rounded-full shadow-lg bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700"
           >
             <BiSolidMessageSquareAdd className="w-6 h-6" />
           </motion.button>
@@ -57,7 +55,6 @@ const Chats = () => {
         {switchTab === "groups" && (
           <motion.button
             onClick={() => setIsCreateGroupOpen(true)}
-            // Animation settings
             animate={{
               scale: [1, 1.1, 1],
               boxShadow: [
@@ -77,7 +74,7 @@ const Chats = () => {
               boxShadow: "0 0 25px 6px rgba(147, 51, 234, 0.8)",
             }}
             whileTap={{ scale: 0.9 }}
-            className="p-3 text-white transition-all duration-300 rounded-full shadow-lg bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700"
+            className="p-3 text-white rounded-full shadow-lg bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700"
           >
             <MdGroupAdd className="w-6 h-6" />
           </motion.button>
@@ -87,39 +84,26 @@ const Chats = () => {
       {/* Chats Content */}
       <AllChats />
 
-      {/* Modals */}
+      {/* FindChats Modal */}
       <Modal
         isOpen={isFindChatsOpen}
         onRequestClose={() => setIsFindChatsOpen(false)}
-        className="w-full max-w-lg p-8 mx-4 bg-white shadow-2xl dark:bg-gray-800 rounded-2xl"
+        className="w-full max-w-md p-0 mx-2 bg-transparent outline-none sm:mx-4 md:max-w-lg" // Adjusted for responsiveness
         overlayClassName="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center"
         style={{ overlay: { zIndex: 1000 } }}
       >
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 20 }}
-          transition={{ duration: 0.3 }}
-        >
-          <FindChats setToggleFindChats={setIsFindChatsOpen} />
-        </motion.div>
+        <FindUserForChat setToggleFindChats={setIsFindChatsOpen} />
       </Modal>
 
+      {/* CreateGroup Modal */}
       <Modal
         isOpen={isCreateGroupOpen}
         onRequestClose={() => setIsCreateGroupOpen(false)}
-        className="w-full max-w-lg p-8 mx-4 bg-white shadow-2xl dark:bg-gray-800 rounded-2xl"
+        className="w-full max-w-md p-0 mx-2 bg-transparent outline-none sm:mx-4 md:max-w-lg"
         overlayClassName="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center"
         style={{ overlay: { zIndex: 1000 } }}
       >
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 20 }}
-          transition={{ duration: 0.3 }}
-        >
-          <CreateGroup setToggleFindChats={setIsCreateGroupOpen} />
-        </motion.div>
+        <CreateGroup setToggleFindChats={setIsCreateGroupOpen} />
       </Modal>
     </motion.div>
   );

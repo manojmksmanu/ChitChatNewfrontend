@@ -13,9 +13,7 @@ const Home = () => {
       <Sidebar />
       <div
         className={` p-1   md:flex-grow-0
-          ${
-          !selectedChat &&  "block flex-grow" 
-        }
+          ${!selectedChat && "block flex-grow"}
         `}
       >
         <Chats />
