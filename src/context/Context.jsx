@@ -12,7 +12,8 @@ export const Provider = ({ children }) => {
   const [fetchChatsAgain, setFetchChatsAgain] = useState(false);
 
   const FetchChatsAgain = () => setFetchChatsAgain((prev) => !prev); // Toggle correctly
-  const baseurl = "http://localhost:5000/";
+  const baseurl = "https://chitchatnewbackend.onrender.com/";
+  // const baseurl = "http://localhost:5000/";
 
   useEffect(() => {
     const userInfo = JSON.parse(localStorage.getItem("userInfo"));
