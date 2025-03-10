@@ -282,30 +282,3 @@ const CreateGroup = ({ setToggleFindChats }) => {
 };
 
 export default CreateGroup;
-
-// Custom Scrollbar CSS (Add to your global CSS file, e.g., index.css)
-const customScrollbarCSS = `
-  .custom-scrollbar::-webkit-scrollbar {
-    width: 6px;
-  }
-  .custom-scrollbar::-webkit-scrollbar-track {
-    background: #f1f1f1;
-    border-radius: 3px;
-  }
-  .custom-scrollbar::-webkit-scrollbar-thumb {
-    background: #888;
-    border-radius: 3px;
-  }
-  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    background: #555;
-  }
-  .dark .custom-scrollbar::-webkit-scrollbar-track {
-    background: #2d3748;
-  }
-  .dark .custom-scrollbar::-webkit-scrollbar-thumb {
-    background: #4f46e5;
-  }
-  .dark .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    background: #7c3aed;
-  }
-`;
