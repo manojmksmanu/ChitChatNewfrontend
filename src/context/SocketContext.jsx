@@ -13,6 +13,8 @@ export const SocketProvider = ({ children }) => {
   const [socket, setSocket] = useState(null);
   const [socketConnected, setSocketConnected] = useState(false);
   const { user, baseurl, FetchChatsAgain } = contextData();
+    const [onlineUsers, setOnlineUsers] = useState(new Set());
+
 
   useEffect(() => {
     // Initialize socket connection

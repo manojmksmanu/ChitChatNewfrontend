@@ -56,6 +56,8 @@ const AllMessages = ({ GroupModal, setGroupModal }) => {
     };
   }, [selectedChat, socket]);
 
+  console.log(selectedChat._id);
+
   // Socket event listeners
   useEffect(() => {
     if (!socket || !user) return;
@@ -63,9 +65,11 @@ const AllMessages = ({ GroupModal, setGroupModal }) => {
     socket.on("typing", () => setIsTyping(true));
     socket.on("stop typing", () => setIsTyping(false));
     socket.on("messageR", (newMessageReceived) => {
+      console.log('jofjdsfjsdlkfjlksdjflksdjf;lkjsdk;lfjsd;lkfjs;lkj')
       if (!selectedChat || !newMessageReceived) return;
 
-      if (newMessageReceived.chat._id === selectedChat._id) {
+      if (newMessageReceived.chat === selectedChat._id) {
+        console.log('it is same ')
         setMessages((prev) => [...prev, newMessageReceived]);
       } else {
         FetchChatsAgain();
