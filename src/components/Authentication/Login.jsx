@@ -3,6 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { contextData } from "../../context/Context";
 import toast from "react-hot-toast";
+import { motion } from "framer-motion";
 
 const Login = () => {
   const { baseurl } = contextData();
@@ -42,7 +43,12 @@ const Login = () => {
 
   return (
     <div className="space-y-6">
-      <div className="relative">
+      <motion.div
+        className="relative"
+        initial={{ opacity: 0, x: -20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.4 }}
+      >
         <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500 dark:text-gray-400">
           <svg
             className="w-5 h-5"
@@ -60,14 +66,19 @@ const Login = () => {
         </span>
         <input
           type="email"
-          className="w-full py-3 pl-10 pr-4 text-gray-900 placeholder-gray-400 transition-colors duration-200 bg-white border border-gray-300 rounded-lg dark:bg-gray-800 dark:border-gray-700 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 dark:text-gray-100 dark:placeholder-gray-500"
+          className="w-full py-3 pl-10 pr-4 text-gray-900 placeholder-gray-400 transition-all duration-200 bg-white border border-gray-300 rounded-lg dark:bg-gray-800 dark:border-gray-700 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 dark:text-gray-100 dark:placeholder-gray-500 hover:shadow-lg"
           placeholder="Email address"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
-      </div>
+      </motion.div>
 
-      <div className="relative">
+      <motion.div
+        className="relative"
+        initial={{ opacity: 0, x: -20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.4, delay: 0.1 }}
+      >
         <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500 dark:text-gray-400">
           <svg
             className="w-5 h-5"
@@ -85,28 +96,40 @@ const Login = () => {
         </span>
         <input
           type="password"
-          className="w-full py-3 pl-10 pr-4 text-gray-900 placeholder-gray-400 transition-colors duration-200 bg-white border border-gray-300 rounded-lg dark:bg-gray-800 dark:border-gray-700 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 dark:text-gray-100 dark:placeholder-gray-500"
+          className="w-full py-3 pl-10 pr-4 text-gray-900 placeholder-gray-400 transition-all duration-200 bg-white border border-gray-300 rounded-lg dark:bg-gray-800 dark:border-gray-700 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 dark:text-gray-100 dark:placeholder-gray-500 hover:shadow-lg"
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-      </div>
+      </motion.div>
 
-      <button
+      <motion.button
         onClick={handleTestCredentials}
-        className="w-full py-3 text-white transition-all duration-200 rounded-lg shadow-md bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700"
+        className="w-full py-3 text-white rounded-lg shadow-md bg-gradient-to-r from-indigo-500 to-purple-600"
+        whileHover={{
+          scale: 1.05,
+          boxShadow: "0 0 15px rgba(99, 102, 241, 0.5)",
+        }}
+        whileTap={{ scale: 0.95 }}
+        transition={{ duration: 0.2 }}
       >
         Use Test Credentials
-      </button>
+      </motion.button>
 
-      <button
+      <motion.button
         onClick={submitHandler}
         disabled={isLoading}
-        className={`w-full py-3 bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-lg flex items-center justify-center transition-all duration-200 shadow-md ${
-          isLoading
-            ? "opacity-70 cursor-not-allowed"
-            : "hover:from-indigo-600 hover:to-purple-700"
+        className={`w-full py-3 bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-lg flex items-center justify-center shadow-md ${
+          isLoading ? "opacity-70 cursor-not-allowed" : ""
         }`}
+        whileHover={
+          !isLoading && {
+            scale: 1.05,
+            boxShadow: "0 0 15px rgba(99, 102, 241, 0.5)",
+          }
+        }
+        whileTap={!isLoading && { scale: 0.95 }}
+        transition={{ duration: 0.2 }}
       >
         {isLoading ? (
           <>
@@ -134,7 +157,7 @@ const Login = () => {
         ) : (
           "Sign In"
         )}
-      </button>
+      </motion.button>
     </div>
   );
 };

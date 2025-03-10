@@ -31,8 +31,9 @@ const Top = ({ isTyping, handleGroupModal }) => {
       {/* Avatar + Name + Status */}
       <div className="flex items-center gap-3 md:gap-4">
         <div className="cursor-pointer" onClick={() => setSelectedChat(null)}>
-          <IoMdArrowRoundBack />
+          <IoMdArrowRoundBack className="text-black dark:text-slate-100" />
         </div>
+
         {/* Profile Image */}
         <div className="relative">
           <img

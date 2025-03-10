@@ -21,7 +21,7 @@ const ThemeToggle = () => {
   return (
     <motion.button
       onClick={toggleTheme}
-      className={`relative p-3 rounded-full overflow-hidden shadow-lg focus:outline-none 
+      className={`relative p-2 sm:p-3 rounded-full overflow-hidden shadow-lg focus:outline-none
         ${
           theme === "light"
             ? "bg-gradient-to-br from-yellow-200 via-orange-300 to-yellow-400"
@@ -29,7 +29,7 @@ const ThemeToggle = () => {
         }`}
       whileHover={{
         scale: 1.1,
-        boxShadow: "0 0 15px rgba(255, 255, 255, 0.5)",
+        boxShadow: "0 0 10px rgba(255, 255, 255, 0.4)",
       }}
       whileTap={{ scale: 0.95, rotate: 5 }}
       transition={{ type: "spring", stiffness: 300 }}
@@ -48,7 +48,7 @@ const ThemeToggle = () => {
         transition={{ duration: 0.5 }}
       />
 
-      {/* Icon with Creative Animation */}
+      {/* Icon with Animation */}
       <motion.div
         key={theme}
         className="relative z-10"
@@ -60,32 +60,12 @@ const ThemeToggle = () => {
         {theme === "light" ? (
           <FaSun
             className="text-yellow-500 drop-shadow-md"
-            size={28}
-            style={{ filter: "drop-shadow(0 0 5px rgba(255, 215, 0, 0.7))" }}
+            size={22} // Chhota icon on mobile
           />
         ) : (
-          <FaMoon
-            className="text-blue-400 drop-shadow-md"
-            size={28}
-            style={{ filter: "drop-shadow(0 0 5px rgba(0, 191, 255, 0.7))" }}
-          />
+          <FaMoon className="text-blue-400 drop-shadow-md" size={22} />
         )}
       </motion.div>
-
-      {/* Orbiting Particle Effect */}
-      <motion.div
-        className="absolute w-2 h-2 bg-white rounded-full opacity-60"
-        animate={{
-          x: [0, 10, 0, -10, 0],
-          y: [0, -10, 0, 10, 0],
-          rotate: 360,
-        }}
-        transition={{
-          duration: 2,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-      />
     </motion.button>
   );
 };

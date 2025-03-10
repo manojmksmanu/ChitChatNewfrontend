@@ -2,6 +2,7 @@ import React, { useState, useRef } from "react";
 import axios from "axios";
 import { contextData } from "../../context/Context";
 import toast from "react-hot-toast";
+import { motion } from "framer-motion";
 
 const Signup = ({ setIsSignUp }) => {
   const { baseurl } = contextData();
@@ -38,9 +39,7 @@ const Signup = ({ setIsSignUp }) => {
       localStorage.setItem("userInfo", JSON.stringify(data));
       setIsSignUp(false);
     } catch (error) {
-      toast.error(
-        `Error: ${error.response?.data?.message || "Signup failed"}`
-      );
+      toast.error(`Error: ${error.response?.data?.message || "Signup failed"}`);
     } finally {
       setIsLoading(false);
     }
@@ -49,21 +48,14 @@ const Signup = ({ setIsSignUp }) => {
   const handleFileSelect = (e) => {
     const file = e.target.files[0];
     if (file) {
-      // Create preview URL
       const reader = new FileReader();
-      reader.onloadend = () => {
-        setPreviewUrl(reader.result);
-      };
+      reader.onloadend = () => setPreviewUrl(reader.result);
       reader.readAsDataURL(file);
-
-      // Upload image to Cloudinary
       postPicToCloudinary(file);
     }
   };
 
-  const triggerFileInput = () => {
-    fileInputRef.current.click();
-  };
+  const triggerFileInput = () => fileInputRef.current.click();
 
   const postPicToCloudinary = async (file) => {
     if (!file) {
@@ -103,7 +95,12 @@ const Signup = ({ setIsSignUp }) => {
   return (
     <div className="space-y-6">
       {/* Profile Image Upload Section */}
-      <div className="flex flex-col items-center justify-center mb-6">
+      <motion.div
+        className="flex flex-col items-center justify-center mb-6"
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.4 }}
+      >
         <div
           className="relative w-32 h-32 mb-4 overflow-hidden bg-gray-200 border-4 border-indigo-500 rounded-full cursor-pointer dark:bg-gray-700"
           onClick={triggerFileInput}
@@ -131,13 +128,21 @@ const Signup = ({ setIsSignUp }) => {
               </svg>
             </div>
           )}
-
-          {/* Image Upload Loader */}
           {isImageUploading && (
             <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50">
               <div className="w-12 h-12 border-4 border-white rounded-full border-t-transparent animate-spin"></div>
             </div>
           )}
+          <motion.div
+            className="absolute inset-0 rounded-full"
+            animate={{
+              scale: [1, 1.1, 1],
+              opacity: [0.2, 0.4, 0.2],
+              background:
+                "radial-gradient(circle, rgba(79, 70, 229, 0.5), transparent)",
+            }}
+            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+          />
         </div>
 
         <input
@@ -148,10 +153,15 @@ const Signup = ({ setIsSignUp }) => {
           className="hidden"
         />
 
-        <button
+        <motion.button
           type="button"
           onClick={triggerFileInput}
-          className="flex items-center px-4 py-2 text-white transition-colors duration-200 bg-indigo-500 rounded-lg hover:bg-indigo-600"
+          className="flex items-center px-4 py-2 text-white bg-indigo-500 rounded-lg"
+          whileHover={{
+            scale: 1.05,
+            boxShadow: "0 0 10px rgba(79, 70, 229, 0.5)",
+          }}
+          whileTap={{ scale: 0.95 }}
         >
           <svg
             className="w-5 h-5 mr-2"
@@ -167,122 +177,87 @@ const Signup = ({ setIsSignUp }) => {
             />
           </svg>
           Upload Profile Photo
-        </button>
-      </div>
+        </motion.button>
+      </motion.div>
 
-      {/* Username Input */}
-      <div className="relative">
-        <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500 dark:text-gray-400">
-          <svg
-            className="w-5 h-5"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-            />
-          </svg>
-        </span>
-        <input
-          type="text"
-          className="w-full py-3 pl-10 pr-4 text-gray-900 placeholder-gray-400 transition-colors duration-200 bg-white border border-gray-300 rounded-lg dark:bg-gray-800 dark:border-gray-700 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 dark:text-gray-100 dark:placeholder-gray-500"
-          placeholder="Username"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-      </div>
-
-      {/* Email Input */}
-      <div className="relative">
-        <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500 dark:text-gray-400">
-          <svg
-            className="w-5 h-5"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-            />
-          </svg>
-        </span>
-        <input
-          type="email"
-          className="w-full py-3 pl-10 pr-4 text-gray-900 placeholder-gray-400 transition-colors duration-200 bg-white border border-gray-300 rounded-lg dark:bg-gray-800 dark:border-gray-700 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 dark:text-gray-100 dark:placeholder-gray-500"
-          placeholder="Email address"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-      </div>
-
-      {/* Password Input */}
-      <div className="relative">
-        <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500 dark:text-gray-400">
-          <svg
-            className="w-5 h-5"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
-            />
-          </svg>
-        </span>
-        <input
-          type="password"
-          className="w-full py-3 pl-10 pr-4 text-gray-900 placeholder-gray-400 transition-colors duration-200 bg-white border border-gray-300 rounded-lg dark:bg-gray-800 dark:border-gray-700 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 dark:text-gray-100 dark:placeholder-gray-500"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-      </div>
-
-      {/* Confirm Password Input */}
-      <div className="relative">
-        <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500 dark:text-gray-400">
-          <svg
-            className="w-5 h-5"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
-            />
-          </svg>
-        </span>
-        <input
-          type="password"
-          className="w-full py-3 pl-10 pr-4 text-gray-900 placeholder-gray-400 transition-colors duration-200 bg-white border border-gray-300 rounded-lg dark:bg-gray-800 dark:border-gray-700 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 dark:text-gray-100 dark:placeholder-gray-500"
-          placeholder="Confirm Password"
-          value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
-        />
-      </div>
+      {/* Inputs */}
+      {[
+        {
+          type: "text",
+          placeholder: "Username",
+          value: name,
+          onChange: setName,
+          icon: "M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z",
+        },
+        {
+          type: "email",
+          placeholder: "Email address",
+          value: email,
+          onChange: setEmail,
+          icon: "M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z",
+        },
+        {
+          type: "password",
+          placeholder: "Password",
+          value: password,
+          onChange: setPassword,
+          icon: "M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z",
+        },
+        {
+          type: "password",
+          placeholder: "Confirm Password",
+          value: confirmPassword,
+          onChange: setConfirmPassword,
+          icon: "M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z",
+        },
+      ].map((field, index) => (
+        <motion.div
+          key={field.placeholder}
+          className="relative"
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.4, delay: index * 0.1 }}
+        >
+          <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500 dark:text-gray-400">
+            <svg
+              className="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d={field.icon}
+              />
+            </svg>
+          </span>
+          <input
+            type={field.type}
+            className="w-full py-3 pl-10 pr-4 text-gray-900 placeholder-gray-400 transition-all duration-200 bg-white border border-gray-300 rounded-lg dark:bg-gray-800 dark:border-gray-700 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 dark:text-gray-100 dark:placeholder-gray-500 hover:shadow-lg"
+            placeholder={field.placeholder}
+            value={field.value}
+            onChange={(e) => field.onChange(e.target.value)}
+          />
+        </motion.div>
+      ))}
 
       {/* Submit Button */}
-      <button
+      <motion.button
         onClick={submitHandler}
         disabled={isLoading}
-        className={`w-full py-3 bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-lg flex items-center justify-center transition-all duration-200 shadow-md ${
-          isLoading
-            ? "opacity-70 cursor-not-allowed"
-            : "hover:from-indigo-600 hover:to-purple-700"
+        className={`w-full py-3 bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-lg flex items-center justify-center shadow-md ${
+          isLoading ? "opacity-70 cursor-not-allowed" : ""
         }`}
+        whileHover={
+          !isLoading && {
+            scale: 1.05,
+            boxShadow: "0 0 15px rgba(99, 102, 241, 0.5)",
+          }
+        }
+        whileTap={!isLoading && { scale: 0.95 }}
+        transition={{ duration: 0.2 }}
       >
         {isLoading ? (
           <>
@@ -310,7 +285,7 @@ const Signup = ({ setIsSignUp }) => {
         ) : (
           "Sign Up"
         )}
-      </button>
+      </motion.button>
     </div>
   );
 };
