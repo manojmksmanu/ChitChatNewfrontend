@@ -42,10 +42,9 @@ const Top = ({ isTyping, handleGroupModal }) => {
             alt="Chat Avatar"
           />
           {/* Online Indicator */}
-          {isOnline &&
-            !selectedChat.isGroupChat &&(
-              <span className="absolute bottom-0 right-0 w-3 h-3 md:w-4 md:h-4 bg-green-500 border-2 border-white dark:border-[#001329] rounded-full"></span>
-            )}
+          {isOnline && !selectedChat.isGroupChat && (
+            <span className="absolute bottom-0 right-0 w-3 h-3 md:w-4 md:h-4 bg-green-500 border-2 border-white dark:border-[#001329] rounded-full"></span>
+          )}
         </div>
 
         {/* Name + Status */}
@@ -65,10 +64,12 @@ const Top = ({ isTyping, handleGroupModal }) => {
       </div>
 
       {/* Menu Icon */}
-      <CiMenuKebab
-        onClick={selectedChat?.isGroupChat ? handleGroupModal : null}
-        className="text-2xl text-gray-600 transition-all cursor-pointer md:text-3xl dark:text-gray-300 hover:text-gray-900 dark:hover:text-white"
-      />
+      {selectedChat.isGroupChat && (
+        <CiMenuKebab
+          onClick={selectedChat?.isGroupChat ? handleGroupModal : null}
+          className="text-2xl text-gray-600 transition-all cursor-pointer md:text-3xl dark:text-gray-300 hover:text-gray-900 dark:hover:text-white"
+        />
+      )}
     </div>
   );
 };

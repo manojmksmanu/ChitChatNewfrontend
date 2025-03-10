@@ -1,28 +1,35 @@
 import React from "react";
 import { contextData } from "../../context/Context";
-import Badge from "../SmallComponents/SelectedUserBadgeGroup/Badge";
+import { motion } from "framer-motion";
+import BadgeWithImg from "../SmallComponents/SelectedUserBadgeGroup/BadgeWithImage";
+
 const GroupDetailsModal = ({ GroupModal }) => {
   const { selectedChat } = contextData();
 
-  if (!GroupModal) {
-    return;
-  }
+  if (!GroupModal) return null;
+
   return (
-    <div className="p-2 max-w-96 w-40 bg-white dark:bg-[#002047] drop-shadow-lg dark:border-white border-2 rounded-md text-slate-800 dark:text-white">
-      <span className="mb-2">{selectedChat.chatName}</span>
-      <div className="group-users-scroll overflow-auto">
-        <div className=" max-h-[400px] overflow-auto">
-          {selectedChat &&
-            selectedChat.users.map((u, i) => {
-              return (
-                <div key={i} className="mb-2">
-                  <Badge data={u} notshowcross={"notshowcross"} />
-                </div>
-              );
-            })}
-        </div>
+    <motion.div
+      className="p-4 w-72 bg-white/70 dark:bg-[#002047]/80 backdrop-blur-md shadow-lg border border-gray-200 dark:border-gray-600 rounded-lg text-slate-800 dark:text-white"
+      initial={{ opacity: 0, scale: 0.95 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: 0.95 }}
+      transition={{ duration: 0.3 }}
+    >
+      {/* Group Name */}
+      <h2 className="text-lg font-semibold text-center text-indigo-700 dark:text-indigo-300">
+        {selectedChat.chatName}
+      </h2>
+
+      {/* Users List */}
+      <div className="mt-3 overflow-auto max-h-64 scrollbar-thin scrollbar-thumb-indigo-300 dark:scrollbar-thumb-gray-600 scrollbar-track-gray-200 dark:scrollbar-track-gray-800 custom-scrollbar">
+        {selectedChat?.users.map((u, i) => (
+          <div key={i} className="flex items-center mb-2">
+            <BadgeWithImg data={u} notshowcross="notshowcross" />
+          </div>
+        ))}
       </div>
-    </div>
+    </motion.div>
   );
 };
 
