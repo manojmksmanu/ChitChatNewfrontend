@@ -1,18 +1,19 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+
 export const Context = createContext();
+
 export const Provider = ({ children }) => {
   const navigate = useNavigate();
-  const [user, setUser] = useState();
-  const [selectedChat, setSelectedChat] = useState();
-  const [chats, setChats] = useState();
-  const [switchTab, setSwitchTab] = useState("allchats"); //to swtich tabs allchats / peoples/ groups/ create group
-  const [fetchChatsAgain,setFetchChatsAgain]=useState(false);
-  const FetchChatsAgain =()=>{
-    setFetchChatsAgain(!fetchChatsAgain);
-  }
-const baseurl = "http://localhost:5000/";
-// const baseurl = "https://chitchatbackend-r5s6.onrender.com/";
+  const [user, setUser] = useState(null); // Initialize as null for clarity
+  const [selectedChat, setSelectedChat] = useState(null);
+  const [chats, setChats] = useState(null);
+  const [switchTab, setSwitchTab] = useState("allchats");
+  const [fetchChatsAgain, setFetchChatsAgain] = useState(false);
+
+  const FetchChatsAgain = () => setFetchChatsAgain((prev) => !prev); // Toggle correctly
+  const baseurl = "http://localhost:5000/";
+
   useEffect(() => {
     const userInfo = JSON.parse(localStorage.getItem("userInfo"));
     console.log(userInfo, "userInfo");
@@ -21,6 +22,7 @@ const baseurl = "http://localhost:5000/";
       navigate("/");
     }
   }, [navigate]);
+
   return (
     <Context.Provider
       value={{
@@ -34,6 +36,7 @@ const baseurl = "http://localhost:5000/";
         setSwitchTab,
         FetchChatsAgain,
         fetchChatsAgain,
+        setFetchChatsAgain,
         baseurl,
       }}
     >
@@ -41,6 +44,5 @@ const baseurl = "http://localhost:5000/";
     </Context.Provider>
   );
 };
-export const contextData = () => {
-  return useContext(Context);
-};
+
+export const contextData = () => useContext(Context);

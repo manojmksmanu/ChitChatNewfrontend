@@ -8,8 +8,11 @@ const ScrollableChat = ({ messages }) => {
   const { user, selectedChat } = contextData();
 
   return (
-    <div className="scrollMessage flex flex-col h-[calc(100vh-200px)] overflow-hidden">
-      <ScrollableFeed className="flex flex-col h-full p-1 overflow-auto">
+    <div className="flex flex-col h-full overflow-y-auto ">
+      <ScrollableFeed
+        className="flex flex-col p-1 custom-scrollbar"
+        forceScroll={true} // Ensures scrolling to the latest message
+      >
         {messages &&
           messages.map((m, i) => {
             const messageTime = format(new Date(m.createdAt), "p");
@@ -25,27 +28,27 @@ const ScrollableChat = ({ messages }) => {
             return (
               <React.Fragment key={i}>
                 {showDateSeparator && (
-                  <div className="w-full flex justify-center my-2">
-                    <span className="bg-gray-200 text-gray-700 text-xs py-1 px-3 rounded-full">
+                  <div className="flex justify-center w-full my-2">
+                    <span className="px-3 py-1 text-xs text-gray-700 bg-gray-200 rounded-full">
                       {messageDate}
                     </span>
                   </div>
                 )}
                 <div
-                  className={`max-w-full flex mt-1 gap-1  ${
+                  className={`max-w-full flex mt-1 gap-1 ${
                     m.sender._id === user._id ? "flex-row-reverse" : "flex-row"
                   }`}
                 >
                   {selectedChat.isGroupChat && m.sender._id !== user._id && (
                     <img
-                      className="w-5 h-5 rounded-full bg-white drop-shadow-md"
+                      className="w-5 h-5 bg-white rounded-full drop-shadow-md"
                       src={m.sender.pic}
                       alt="Sender"
                     />
                   )}
 
                   <motion.div
-                    className={` md:max-w-72 sm:max-w-44 max-w-28  ${
+                    className={`md:max-w-72 sm:max-w-44 max-w-28 ${
                       m.sender._id === user._id
                         ? "bg-white text-slate-900"
                         : "bg-blue-700 text-slate-100"
@@ -70,3 +73,30 @@ const ScrollableChat = ({ messages }) => {
 };
 
 export default ScrollableChat;
+
+// Custom Scrollbar CSS (Add to your global CSS file, e.g., index.css)
+const customScrollbarCSS = `
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 3px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+  .dark .custom-scrollbar::-webkit-scrollbar-track {
+    background: #2d3748;
+  }
+  .dark .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #4f46e5;
+  }
+  .dark .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #7c3aed;
+  }
+`;
