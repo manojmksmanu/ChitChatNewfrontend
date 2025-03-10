@@ -62,19 +62,26 @@ const AllMessages = ({ GroupModal, setGroupModal }) => {
   useEffect(() => {
     if (!socket || !user) return;
 
+      const handleMessageReceive = (newMessageReceived) => {
+        if (!selectedChat || !newMessageReceived) return;
+
+        if (newMessageReceived.chat === selectedChat._id) {
+          setMessages((prev) => {
+            // Duplicate messages ko filter karein
+            const isDuplicate = prev.some(
+              (msg) => msg._id === newMessageReceived._id
+            );
+            return isDuplicate ? prev : [...prev, newMessageReceived];
+          });
+        } else {
+          FetchChatsAgain();
+        }
+      };
+
     socket.on("typing", () => setIsTyping(true));
     socket.on("stop typing", () => setIsTyping(false));
-    socket.on("messageR", (newMessageReceived) => {
-      console.log('jofjdsfjsdlkfjlksdjflksdjf;lkjsdk;lfjsd;lkfjs;lkj')
-      if (!selectedChat || !newMessageReceived) return;
+  socket.on("messageR", handleMessageReceive);
 
-      if (newMessageReceived.chat === selectedChat._id) {
-        console.log('it is same ')
-        setMessages((prev) => [...prev, newMessageReceived]);
-      } else {
-        FetchChatsAgain();
-      }
-    });
 
     return () => {
       socket.off("typing");
