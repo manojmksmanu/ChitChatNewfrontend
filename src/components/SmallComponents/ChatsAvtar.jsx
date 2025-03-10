@@ -1,14 +1,25 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { contextData } from "../../context/Context";
 import { getSender } from "../../chatLoggics/chatLoggics";
 import { motion } from "framer-motion";
 import { format, isToday, isYesterday } from "date-fns";
 import NoImage from "../../assets/no-image.png";
+import { useSocket } from "../../context/SocketContext";
 
 const ChatsAvtar = ({ data }) => {
   const { user } = contextData();
+  const { onlineUsers } = useSocket();
   const sender = getSender(user, data.users);
-  const [isOnline] = React.useState(true); // Mock state; replace with socket later
+  const [isOnline, setIsOnline] = useState(false);
+
+  console.log(onlineUsers);
+
+  useEffect(() => {
+    if (!data.isGroupChat) {
+      const sender = data.users.filter((u) => u._id !== user._id);
+      setIsOnline(onlineUsers.has(sender[0]?._id));
+    }
+  }, [onlineUsers]);
 
   // Format the latest message time and date
   const messageTime = data.latestMessage
@@ -43,7 +54,7 @@ const ChatsAvtar = ({ data }) => {
           alt="Chat Avatar"
         />
 
-        {isOnline && (
+        {!data.isGroupChat && isOnline && (
           <motion.div
             className="absolute rounded-full w-14 h-14 md:w-16 md:h-16 bg-gradient-to-r from-green-400 via-teal-500 to-green-400 opacity-70"
             initial={{ rotate: 0, scale: 1, opacity: 0.7 }} // Start immediately
@@ -59,7 +70,7 @@ const ChatsAvtar = ({ data }) => {
             }}
           />
         )}
-        {isOnline && (
+        {!data.isGroupChat && isOnline && (
           <span className="absolute bottom-0 right-0 z-10 w-3 h-3 bg-green-500 border-2 border-white rounded-full md:w-4 md:h-4 dark:border-gray-800" />
         )}
       </div>
