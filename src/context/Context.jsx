@@ -12,7 +12,7 @@ export const Provider = ({ children }) => {
   const [fetchChatsAgain, setFetchChatsAgain] = useState(false);
 
   const FetchChatsAgain = () => setFetchChatsAgain((prev) => !prev); // Toggle correctly
-  const baseurl = "https://chitchatnewbackend.onrender.com/";
+  const baseurl = import.meta.env.VITE_API_URL;
   // const baseurl = "http://localhost:5000/";
 
   useEffect(() => {

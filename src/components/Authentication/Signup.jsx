@@ -4,6 +4,8 @@ import { contextData } from "../../context/Context";
 import toast from "react-hot-toast";
 import { motion } from "framer-motion";
 
+
+
 const Signup = ({ setIsSignUp }) => {
   const { baseurl } = contextData();
   const [name, setName] = useState("");
@@ -15,6 +17,7 @@ const Signup = ({ setIsSignUp }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isImageUploading, setIsImageUploading] = useState(false);
   const fileInputRef = useRef(null);
+  const cloudinaryUrl = import.meta.env.VITE_CLOUDINARY_URL;
 
   const submitHandler = async () => {
     setIsLoading(true);
@@ -75,13 +78,10 @@ const Signup = ({ setIsSignUp }) => {
     data.append("cloud_name", "dxzu6oq4p");
 
     try {
-      const res = await fetch(
-        "https://api.cloudinary.com/v1_1/dxzu6oq4p/image/upload",
-        {
-          method: "POST",
-          body: data,
-        }
-      );
+      const res = await fetch(cloudinaryUrl, {
+        method: "POST",
+        body: data,
+      });
       const result = await res.json();
       setPic(result.secure_url);
     } catch (error) {

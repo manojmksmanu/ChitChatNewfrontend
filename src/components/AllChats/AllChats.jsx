@@ -62,6 +62,8 @@ const renderNoChatsMessage = () => {
   const groupChats = chats?.filter((chat) => chat.isGroupChat === true);
   const directChats = chats?.filter((chat) => chat.isGroupChat === false);
 
+  console.log(chats?.length,'lengtyh')
+
   return (
     <div className="relative flex flex-col w-full h-full p-1 md:p-1 custom_scroll_bar ">
       <div className="flex flex-col px-4 py-3 m-2 shadow-sm bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-gray-800 dark:to-gray-900 rounded-xl">
@@ -73,7 +75,7 @@ const renderNoChatsMessage = () => {
       </div>
 
       <div className="flex-grow bg-white dark:bg-[#001329] overflow-x-hidden overflow-auto rounded-md m-2">
-        {loading && chats?.length === 0 ? (
+        {loading && !chats ? (
           <div className="flex items-center justify-center h-full">
             <BeatLoader color="#4f46e5" size={12} />
           </div>
