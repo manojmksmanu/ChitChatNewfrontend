@@ -46,18 +46,18 @@ const AllChats = () => {
     }
   }, [fetchChatsAgain, user]);
 
-  const renderNoChatsMessage = () => {
-    if (switchTab === "allchats") {
-      return "No chats available";
-    }
-    if (switchTab === "people") {
-      return "No Direct Messages";
-    }
-    if (switchTab === "groups") {
-      return "No Group Chats";
-    }
-    return "";
-  };
+const renderNoChatsMessage = () => {
+  if (switchTab === "allchats") {
+    return "Looks like a ghost town here! Start a conversation now!";
+  }
+  if (switchTab === "people") {
+    return "No Direct Messages yet! Time to break the silence.";
+  }
+  if (switchTab === "groups") {
+    return "No Group Chats? Gather your squad and create one!";
+  }
+  return "";
+};
 
   const groupChats = chats?.filter((chat) => chat.isGroupChat === true);
   const directChats = chats?.filter((chat) => chat.isGroupChat === false);
@@ -80,12 +80,12 @@ const AllChats = () => {
         ) : (
           <>
             {switchTab === "allchats" && chats?.length === 0 && (
-              <div className="flex items-center justify-center h-full text-gray-500">
+              <div className="flex items-center justify-center h-full text-center text-gray-500">
                 {renderNoChatsMessage()}
               </div>
             )}
             {switchTab === "people" && directChats?.length === 0 && (
-              <div className="flex items-center justify-center h-full text-gray-500">
+              <div className="flex items-center justify-center h-full text-center text-gray-500">
                 {renderNoChatsMessage()}
               </div>
             )}

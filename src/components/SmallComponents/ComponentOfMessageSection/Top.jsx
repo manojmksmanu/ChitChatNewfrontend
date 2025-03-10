@@ -16,14 +16,14 @@ const Top = ({ isTyping, handleGroupModal }) => {
 
   useEffect(() => {
     if (!selectedChat.isGroupChat) {
-      const sender = selectedChat.users.find((u) => u._id !== user._id);
+      const sender = selectedChat.users.find((u) => u?._id !== user?._id);
       setIsOnline(onlineUsers.has(sender?._id));
     }
   }, [onlineUsers, selectedChat, user]);
 
   const sender =
-    selectedChat && !selectedChat.isGroupChat
-      ? getSender(user, selectedChat.users)
+    selectedChat && !selectedChat?.isGroupChat
+      ? getSender(user, selectedChat?.users)
       : null;
 
   return (
@@ -58,7 +58,7 @@ const Top = ({ isTyping, handleGroupModal }) => {
             {selectedChat && !selectedChat.isGroupChat
               ? sender?.name
               : selectedChat?.isGroupChat
-              ? selectedChat.chatName
+              ? selectedChat?.chatName
               : "No Chat Selected"}
           </span>
 
@@ -69,7 +69,7 @@ const Top = ({ isTyping, handleGroupModal }) => {
       </div>
 
       {/* Menu Icon */}
-      {selectedChat.isGroupChat && (
+      {selectedChat?.isGroupChat && (
         <CiMenuKebab
           onClick={selectedChat?.isGroupChat ? handleGroupModal : null}
           className="text-2xl text-gray-600 transition-all cursor-pointer md:text-3xl dark:text-gray-300 hover:text-gray-900 dark:hover:text-white"
